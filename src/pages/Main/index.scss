@@ -1,0 +1,12 @@
+.main {
+  padding: 0 5%;
+  .row-form {
+    height: 20vh;
+    justify-content: space-between;
+    .col-magic {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

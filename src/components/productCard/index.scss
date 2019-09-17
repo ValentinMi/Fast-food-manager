@@ -1,0 +1,12 @@
+.card {
+  width: 80%;
+  max-width: 280px;
+  margin: 10% auto;
+  .admin-btn-cont {
+    display: flex;
+    justify-content: space-between;
+  }
+  .select-input {
+    width: 25%;
+  }
+}

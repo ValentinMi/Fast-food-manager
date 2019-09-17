@@ -1,0 +1,16 @@
+.col-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .form-card {
+    display: flex;
+    flex-direction: column;
+    * {
+      margin: 2% 0;
+    }
+  }
+
+  .btn-new-product {
+    margin: 10% 5%;
+  }
+}
