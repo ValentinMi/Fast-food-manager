@@ -6,6 +6,8 @@
 
 `$ npm start`
 
+App de gestion de fast food
+
 ## To do list
 
      - Correct price order bug
