@@ -16,11 +16,19 @@ const CardForm = ({ actions }) => {
   };
 
   const handleChange = event => {
-    if (event.target.name === "name")
-      setForm({ ...form, name: event.target.value });
-    else if (event.target.name === "stock")
-      setForm({ ...form, stock: event.target.value });
-    else setForm({ ...form, price: parseFloat(event.target.value) });
+    switch (event.target.name) {
+      case "name":
+        setForm({ ...form, name: event.target.value });
+        break;
+      case "stock":
+        setForm({ ...form, stock: parseInt(event.target.value) });
+        break;
+      case "price":
+        setForm({ ...form, price: parseFloat(event.target.value) });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = () => {

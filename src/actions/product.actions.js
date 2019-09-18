@@ -19,3 +19,11 @@ export const refoundProduct = (index, selectValue) => ({
     selectValue
   }
 });
+
+export const substractProduct = (index, value) => ({
+  type: productConst.SUBSTRACT_PRODUCT,
+  payload: {
+    index,
+    value
+  }
+});
