@@ -22,6 +22,17 @@ const orderReducer = (state = initState, action) => {
         p => p.name === payload.product.name
       );
       if (index !== -1) {
+        // Check stock
+        if (
+          newOrders.pendingOrder[index].quantity + payload.quantity >
+          payload.product.stock
+        ) {
+          // If request quantity is superior as stock => alert
+          alert(
+            `Il ne reste que ${payload.product.stock} ${payload.product.name}`
+          );
+          return state;
+        }
         // Add the quantity to existing product and ajust the price
         newOrders.pendingOrder[index].quantity += payload.quantity;
         newOrders.pendingOrder[index].price +=

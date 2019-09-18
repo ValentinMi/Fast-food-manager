@@ -64,7 +64,6 @@ const productReducer = (state = initState, action) => {
 
     // SUBSTRACT
     case productConst.SUBSTRACT_PRODUCT:
-      console.log(payload.index);
       newProducts[payload.index].stock -= payload.value;
       return { ...state, products: newProducts };
     default:
