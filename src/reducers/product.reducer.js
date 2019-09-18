@@ -56,12 +56,16 @@ const productReducer = (state = initState, action) => {
     // REFOUND
     case productConst.REFOUND_PRODUCT:
       // Add selected value
-      newProducts[payload.index].stock =
-        newProducts[payload.index].stock + payload.selectValue;
+      newProducts[payload.index].stock += payload.selectValue;
       return {
         ...state,
-        products: [...state.products]
+        products: newProducts
       };
+
+    // SUBSTRACT
+    case productConst.SUBSTRACT_PRODUCT:
+      newProducts[payload.index].stock -= payload.value;
+      return { ...state, products: newProducts };
     default:
       return state;
   }
