@@ -22,8 +22,10 @@ const orderReducer = (state = initState, action) => {
         p => p.name === payload.product.name
       );
       if (index !== -1) {
-        // Add the quantity to existing product
+        // Add the quantity to existing product and ajust the price
         newOrders.pendingOrder[index].quantity += payload.quantity;
+        newOrders.pendingOrder[index].price +=
+          payload.product.price * payload.quantity;
         return { ...state, orders: newOrders };
       } else {
         // Push product in pendingOrder
