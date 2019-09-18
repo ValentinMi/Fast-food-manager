@@ -16,10 +16,10 @@ import {
 
 import { becomeCustomer, becomeAdmin } from "../../actions/user.actions";
 
-import ProductCard from "../../components/productCard";
-import ProductForm from "../../components/productForm";
-import UserMagicButton from "../../components/userMagicButton";
-import OrderList from "../../components/orderList";
+import ProductCard from "../../components/ProductCard";
+import ProductForm from "../../components/ProductForm";
+import UserMagicButton from "../../components/UserMagicButton";
+import OrderList from "../../components/OrderList";
 
 import "./index.scss";
 
