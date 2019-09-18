@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import {
   addProduct,
   removeProduct,
-  refoundProduct
+  refoundProduct,
+  substractProduct
 } from "../../actions/product.actions";
 
 import {
@@ -61,6 +62,7 @@ class Main extends Component {
           </div>
           <div className="col-3">
             <OrderList
+              products={products}
               orders={orders}
               user={user}
               actions={{ orderActions, productActions }}
@@ -84,7 +86,8 @@ const mapDispatchToProps = dispatch => ({
     addProduct: newProduct => dispatch(addProduct(newProduct)),
     removeProduct: index => dispatch(removeProduct(index)),
     refoundProduct: (index, selectValue) =>
-      dispatch(refoundProduct(index, selectValue))
+      dispatch(refoundProduct(index, selectValue)),
+    substractProduct: (index, value) => dispatch(substractProduct(index, value))
   },
   // Order
   orderActions: {

@@ -4,7 +4,7 @@ import ProductCard from "../ProductCard/index";
 
 import "./index.scss";
 
-const OrderList = ({ orders, user, actions }) => {
+const OrderList = ({ products, orders, user, actions }) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Destructure order
@@ -19,6 +19,16 @@ const OrderList = ({ orders, user, actions }) => {
       total += product.price;
     });
     return total;
+  };
+
+  const handleBuy = () => {
+    // Subtract bought quantity from each product stock
+    pendingOrder.forEach(product => {
+      let productIndex = products.findIndex(p => p.name === product.name);
+      productActions.substractProduct(productIndex, product.quantity);
+    });
+    // Send this pendingOrder to payedOrder
+    orderActions.buyOrder(pendingOrder);
   };
 
   // Recalcul price after each change in OrderList
@@ -73,7 +83,7 @@ const OrderList = ({ orders, user, actions }) => {
           <span className="price">{totalPrice} €</span>
           <button
             className="btn btn-lg btn-success btn-buy"
-            onClick={() => orderActions.buyOrder(pendingOrder)}
+            onClick={() => handleBuy()}
           >
             BUY
           </button>
