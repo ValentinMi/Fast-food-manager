@@ -62,8 +62,8 @@ const ProductCard = ({ user, product, actions, index, inOrderList }) => {
   function renderAdminUI() {
     return (
       <div className="admin-box">
-        <span>Available: {stock}</span>
-        <p>{price * selectValue} €</p>
+        <span>Stock: {stock}</span>
+        <p>{price} €</p>
         <SelectInput length={50} name={name} onChange={handleSelectChange} />
         <div className="admin-btn-cont">
           <button
