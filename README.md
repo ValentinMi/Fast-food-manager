@@ -1,15 +1,14 @@
 # Install
 
-`$ npm install`
+`$ npm install` & `npm run client-install`
 
 # Dev
 
-`$ npm start`
+`$ npm run server` & `npm run client`
 
 App de gestion de fast food
 
 ## To do list
 
-     - Correct price order bug
      - Back end... Auth and API
      - Learn Redux middleware
