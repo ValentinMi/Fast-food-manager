@@ -1,9 +1,7 @@
-const config = require("config");
-const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-//  Create model and schema
+//  Create model and his schema
 const Product = mongoose.model(
   "Product",
   new mongoose.Schema({
@@ -17,6 +15,10 @@ const Product = mongoose.model(
       type: Number,
       min: 0,
       required: true
+    },
+    quantity: {
+        type: Number,
+        min: 1,
     },
     stock: {
       type: Number,
@@ -44,6 +46,5 @@ function validateProduct(product) {
     return Joi.validate(product, schema)
 }
 
-exports.productSchema = productSchema;
 exports.Product = Product;
 exports.validate = validateProduct;
