@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import ProductCard from "../ProductCard/index";
 
@@ -38,58 +38,61 @@ const OrderList = ({ products, orders, user, actions }) => {
   });
 
   return (
-    <div className="order-cont">
-      <div className="order-list">
-        {user.isAdmin
-          ? payedOrders.map((order, index) => (
-              <div className="order-payed" key={order}>
-                <h1>N°{index}</h1>
-                {order.map((product, index) => (
-                  <ProductCard
-                    key={`payed${product.name}`}
-                    user={user}
-                    product={product}
-                    actions={{ orderActions, productActions }}
-                    index={index}
-                    inOrderList={true}
-                  />
-                ))}
-                <div className="order-payed-footer">
-                  <span className="order-price">
-                    {handleTotalPrice(order)} €
-                  </span>
-                  <button
-                    className="btn btn-warning btn-order-send"
-                    onClick={() => orderActions.sendOrder(index)}
-                  >
-                    Send
-                  </button>
+    <Fragment>
+      <h1 className="order-title">{user.isAdmin ? "Payed" : "Your order:"}</h1>
+      <div className="order-cont">
+        <div className="order-list">
+          {user.isAdmin
+            ? payedOrders.map((order, orderIndex) => (
+                <div className="order-payed" key={`${order + orderIndex}`}>
+                  <h1>N°{orderIndex}</h1>
+                  {order.map((product, index) => (
+                    <ProductCard
+                      key={`payed${product.name}${orderIndex}`}
+                      user={user}
+                      product={product}
+                      actions={{ orderActions, productActions }}
+                      index={index}
+                      inOrderList={true}
+                    />
+                  ))}
+                  <div className="order-payed-footer">
+                    <span className="order-price">
+                      {handleTotalPrice(order)} €
+                    </span>
+                    <button
+                      className="btn btn-warning btn-order-send"
+                      onClick={() => orderActions.sendOrder(orderIndex)}
+                    >
+                      Send
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))
-          : pendingOrder.map((product, index) => (
-              <ProductCard
-                key={`pending${product.name}`}
-                user={user}
-                product={product}
-                actions={{ orderActions, productActions }}
-                index={index}
-                inOrderList={true}
-              />
-            ))}
-      </div>
-      {!user.isAdmin && (
-        <div className="buy-box">
-          <span className="price">{totalPrice} €</span>
-          <button
-            className="btn btn-lg btn-success btn-buy"
-            onClick={() => handleBuy()}
-          >
-            BUY
-          </button>
+              ))
+            : pendingOrder.map((product, index) => (
+                <ProductCard
+                  key={`pending${product.name}${index}`}
+                  user={user}
+                  product={product}
+                  actions={{ orderActions, productActions }}
+                  index={index}
+                  inOrderList={true}
+                />
+              ))}
         </div>
-      )}
-    </div>
+        {!user.isAdmin && (
+          <div className="buy-box">
+            <span className="price">{totalPrice} €</span>
+            <button
+              className="btn btn-lg btn-success btn-buy"
+              onClick={() => handleBuy()}
+            >
+              BUY
+            </button>
+          </div>
+        )}
+      </div>
+    </Fragment>
   );
 };
 
