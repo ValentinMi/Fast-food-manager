@@ -1,0 +1,5 @@
+{
+  "db": "mongodb://localhost/fast-food-manager",
+  "jwtPrivateKey": "unsecureKey",
+  "requiresAuth": false
+}
