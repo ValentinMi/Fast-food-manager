@@ -39,6 +39,7 @@ userSchema.methods.generateAuthToken = function() {
   return token;
 };
 
+// Create model
 const User = mongoose.model("User", userSchema);
 
 // Validation
