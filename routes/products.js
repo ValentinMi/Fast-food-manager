@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   // Check if product already exist
-  let product = await Product.findOne({ name: req.body.name });
+  let newProduct = await Product.findOne({ name: req.body.name });
   if (product) return res.status(400).send("Product already exist");
 
   // Create new Product
@@ -40,6 +40,8 @@ router.post("/", async (req, res) => {
 
   // Save product
   await newProduct.save();
+
+  res.send(newProduct);
 });
 
 // UPDATE PRODUCT
@@ -71,3 +73,5 @@ router.delete("/:id", async (req, res) => {
 
   res.send(product);
 });
+
+module.exports = router;
