@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 // GET PAYED ORDER
-router.get("/:id", [auth], async (req, res) => {
+router.get("/:id", [auth], [auth], async (req, res) => {
   const payedOrder = await PayedOrder.findById(req.params.id);
   if (!payedOrder) return res.status(404).send("Payed Order not found");
 
@@ -13,7 +13,7 @@ router.get("/:id", [auth], async (req, res) => {
 });
 
 // GET ALL PAYED ORDERS
-router.get("/", [admin], async (req, res) => {
+router.get("/", [auth], [admin], async (req, res) => {
   const payedOrders = await PayedOrder.find().select("__v");
 
   res.send(payedOrders);
