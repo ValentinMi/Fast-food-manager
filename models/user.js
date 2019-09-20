@@ -62,6 +62,5 @@ function validateUser(user) {
   return Joi.validate(user, schema);
 }
 
-exports.userSchema = userSchema;
 exports.User = User;
 exports.validate = validateUser;

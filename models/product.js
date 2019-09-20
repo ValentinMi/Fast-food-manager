@@ -8,7 +8,7 @@ const Product = mongoose.model(
     name: {
       type: String,
       minlength: 2,
-      maxlength: 255,
+      maxlength: 50,
       required: true
     },
     price: {
@@ -33,7 +33,7 @@ function validateProduct(product) {
   const schema = {
     name: Joi.string()
       .min(2)
-      .max(255)
+      .max(50)
       .required(),
     price: Joi.number()
       .min(0)
