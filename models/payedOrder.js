@@ -14,7 +14,10 @@ const PayedOrder = mongoose.model(
       type: Number,
       min: 0
     },
-    date: moment().toJSON()
+    date: {
+      type: Date,
+      required: true
+    }
   })
 );
 

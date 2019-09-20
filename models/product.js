@@ -17,8 +17,8 @@ const Product = mongoose.model(
       required: true
     },
     quantity: {
-        type: Number,
-        min: 1,
+      type: Number,
+      min: 1
     },
     stock: {
       type: Number,
@@ -30,20 +30,20 @@ const Product = mongoose.model(
 
 // Validation
 function validateProduct(product) {
-    const schema = {
-        name: Joi.string()
-            .min(2)
-            .max(255)
-            .required(),
-        price: Joi.number()
-            .min(0)
-            .required(),
-        stock: Joi.number()
-            .min(0),
-            required()
-    };
+  const schema = {
+    name: Joi.string()
+      .min(2)
+      .max(255)
+      .required(),
+    price: Joi.number()
+      .min(0)
+      .required(),
+    stock: Joi.number()
+      .min(0)
+      .required()
+  };
 
-    return Joi.validate(product, schema)
+  return Joi.validate(product, schema);
 }
 
 exports.Product = Product;
