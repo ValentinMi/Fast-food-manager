@@ -1,5 +1,4 @@
-// Auth middleware WIP
-// Admin middleware WIP
+const admin = require("../middleware/admin");
 const { Product, validate } = require("../models/product");
 const express = require("express");
 const router = express.Router();
@@ -22,7 +21,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST NEW PRODUCT
-router.post("/", async (req, res) => {
+router.post("/", [admin], async (req, res) => {
   // Validation
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -45,7 +44,7 @@ router.post("/", async (req, res) => {
 });
 
 // UPDATE PRODUCT
-router.put("/:id", async (req, res) => {
+router.put("/:id", [admin], async (req, res) => {
   // Validation
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -66,7 +65,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE PRODUCT
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [admin], async (req, res) => {
   const product = await Product.findOneAndDelete(req.params.id);
 
   if (!product) return res.status(404).send("Product not found");
