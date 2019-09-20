@@ -1,5 +1,5 @@
-const auth = require("../middleware/auth");
-const admin = require("../middleware/admin");
+const auth = require("../middlewares/auth");
+const admin = require("../middlewares/admin");
 const { PendingOrder, validate } = require("../models/pendingOrder");
 const express = require("express");
 const router = express.Router();
@@ -45,3 +45,5 @@ router.delete("/:id", [auth], async (req, res) => {
 
   res.send(pendingOrder);
 });
+
+module.exports = router;
