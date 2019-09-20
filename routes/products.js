@@ -28,7 +28,7 @@ router.post("/", [admin], async (req, res) => {
 
   // Check if product already exist
   let newProduct = await Product.findOne({ name: req.body.name });
-  if (product) return res.status(400).send("Product already exist");
+  if (newProduct) return res.status(400).send("Product already exist");
 
   // Create new Product
   newProduct = new Product({
