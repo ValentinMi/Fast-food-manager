@@ -52,7 +52,6 @@ const OrderList = ({ products, orders, user, actions }) => {
                       user={user}
                       product={product}
                       actions={{ orderActions, productActions }}
-                      index={index}
                       inOrderList={true}
                     />
                   ))}
@@ -75,7 +74,6 @@ const OrderList = ({ products, orders, user, actions }) => {
                   user={user}
                   product={product}
                   actions={{ orderActions, productActions }}
-                  index={index}
                   inOrderList={true}
                 />
               ))}

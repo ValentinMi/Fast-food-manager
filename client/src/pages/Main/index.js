@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 import {
   getProducts,
   postProduct,
+  updateProductById,
   removeProductById
 } from "../../actions/product.actions";
 
 import {
-  addProductToOrder,
-  removeProductFromOrder,
-  buyOrder,
-  sendOrder
+  // addProductToOrder,
+  // removeProductFromOrder,
+  // buyOrder,
+  // sendOrder
 } from "../../actions/order.actions";
 
 import { becomeCustomer, becomeAdmin } from "../../actions/user.actions";
@@ -60,7 +61,6 @@ class Main extends Component {
                     product={product}
                     user={user}
                     actions={{ orderActions, productActions }}
-                    index={index}
                   />
                 </div>
               ))}
@@ -91,6 +91,7 @@ const mapDispatchToProps = dispatch => ({
   productActions: {
     getProducts: () => dispatch(getProducts()),
     postProduct: (product) => dispatch(postProduct(product)),
+    updateProductById: (productId, data) => dispatch(updateProductById(productId, data)),
     removeProductById: (productId) => dispatch(removeProductById(productId))
   },
   // Order
