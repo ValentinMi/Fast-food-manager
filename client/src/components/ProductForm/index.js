@@ -33,7 +33,7 @@ const CardForm = ({ actions }) => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      actions.addProduct(form);
+      actions.postProduct(form);
     } else return;
   };
 

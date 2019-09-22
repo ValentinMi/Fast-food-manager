@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import {
-  addProduct,
-  removeProduct,
-  refoundProduct,
-  substractProduct
+  getProducts,
+  postProduct,
+  removeProductById
 } from "../../actions/product.actions";
 
 import {
@@ -25,6 +24,12 @@ import OrderList from "../../components/OrderList";
 import "./index.scss";
 
 class Main extends Component {
+
+  componentDidMount() {
+  // Fetch products
+    this.props.productActions.getProducts()
+  }
+
   render() {
     // Props variables
     const { products, orders, user } = this.props;
@@ -37,6 +42,7 @@ class Main extends Component {
 
     // User props actions
     const { userActions } = this.props;
+
 
     return (
       <div className="main">
@@ -83,24 +89,22 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   // Product
   productActions: {
-    addProduct: newProduct => dispatch(addProduct(newProduct)),
-    removeProduct: index => dispatch(removeProduct(index)),
-    refoundProduct: (index, selectValue) =>
-      dispatch(refoundProduct(index, selectValue)),
-    substractProduct: (index, value) => dispatch(substractProduct(index, value))
+    getProducts: () => dispatch(getProducts()),
+    postProduct: (product) => dispatch(postProduct(product)),
+    removeProductById: (productId) => dispatch(removeProductById(productId))
   },
   // Order
   orderActions: {
-    addProductToOrder: (product, quantity, price) =>
-      dispatch(addProductToOrder(product, quantity, price)),
-    removeProductFromOrder: index => dispatch(removeProductFromOrder(index)),
-    buyOrder: orderList => dispatch(buyOrder(orderList)),
-    sendOrder: index => dispatch(sendOrder(index))
+    // addProductToOrder: (product, quantity, price) =>
+    //   dispatch(addProductToOrder(product, quantity, price)),
+    // removeProductFromOrder: index => dispatch(removeProductFromOrder(index)),
+    // buyOrder: orderList => dispatch(buyOrder(orderList)),
+    // sendOrder: index => dispatch(sendOrder(index))
   },
   // User
   userActions: {
-    becomeCustomer: () => dispatch(becomeCustomer()),
-    becomeAdmin: () => dispatch(becomeAdmin())
+    // becomeCustomer: () => dispatch(becomeCustomer()),
+    // becomeAdmin: () => dispatch(becomeAdmin())
   }
 });
 

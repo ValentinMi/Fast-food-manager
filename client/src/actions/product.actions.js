@@ -1,29 +1,34 @@
 import * as productConst from "../const/product.const";
+import * as productAPI from "../api/product.api"
 
-export const addProduct = newProduct => ({
-  type: productConst.ADD_PRODUCT,
-  payload: newProduct
-});
+export const getProducts = () => dispatch => {
+   dispatch({
+    type: productConst.GET_PRODUCTS,
+    payload: productAPI.getProducts()
+  });
+}
 
-export const removeProduct = index => ({
-  type: productConst.REMOVE_PRODUCT,
-  payload: {
-    index
-  }
-});
+export const postProduct = product => async dispatch => {
+  await dispatch({
+    type: productConst.POST_PRODUCT,
+    payload: productAPI.postProduct(product)
+  });
 
-export const refoundProduct = (index, selectValue) => ({
-  type: productConst.REFOUND_PRODUCT,
-  payload: {
-    index,
-    selectValue
-  }
-});
+    dispatch({
+    type: productConst.GET_PRODUCTS,
+    payload: productAPI.getProducts()
+  })
+}
 
-export const substractProduct = (index, value) => ({
-  type: productConst.SUBSTRACT_PRODUCT,
-  payload: {
-    index,
-    value
-  }
-});
+export const removeProductById = productId => async dispatch => {
+  await dispatch({
+    type: productConst.REMOVE_PRODUCT,
+    payload: productAPI.removeProductById(productId)
+  });
+
+   dispatch({
+    type: productConst.GET_PRODUCTS,
+    payload: productAPI.getProducts()
+  })
+}
+

@@ -14,7 +14,7 @@ const ProductCard = ({ user, product, actions, index, inOrderList }) => {
   const { isAdmin } = user;
 
   // Destructure actions
-  const { removeProduct, refoundProduct } = actions.productActions;
+  const { removeProductById, refoundProduct } = actions.productActions;
   const { addProductToOrder, removeProductFromOrder } = actions.orderActions;
 
   const handleSelectChange = newValue => {
@@ -74,7 +74,7 @@ const ProductCard = ({ user, product, actions, index, inOrderList }) => {
           </button>
           <button
             className="btn btn-danger btn-admin"
-            onClick={() => removeProduct(index)}
+            onClick={() => removeProductById(product._id)}
           >
             Delete product
           </button>

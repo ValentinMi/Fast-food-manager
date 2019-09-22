@@ -1,5 +1,7 @@
 # Install
 
+You need mongoDB installed
+
 `$ npm install` & `npm run client-install`
 
 `node seed.js`
@@ -19,4 +21,4 @@ App de gestion de fast food
 
      - Write API test
      - Learn Redux middleware
-     - Connect front & front
+     - Connect front & back
