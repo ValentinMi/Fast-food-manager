@@ -19,7 +19,6 @@ import { becomeCustomer, becomeAdmin } from "../../actions/user.actions";
 
 import ProductCard from "../../components/ProductCard";
 import ProductForm from "../../components/ProductForm";
-import UserMagicButton from "../../components/UserMagicButton";
 import OrderList from "../../components/OrderList";
 
 import "./index.scss";

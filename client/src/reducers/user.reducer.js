@@ -2,7 +2,7 @@ import * as userConst from "../const/user.const";
 
 const initState = {
   user: {
-    isAdmin: true
+    isAdmin: false
   }
 };
 
