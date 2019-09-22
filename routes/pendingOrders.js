@@ -14,7 +14,7 @@ router.get("/:id", [auth], async (req, res) => {
 
 // GET ALL PENDING ORDERS
 router.get("/", [admin], async (req, res) => {
-  const pendingOrders = await PendingOrder.find().select("__v");
+  const pendingOrders = await PendingOrder.find()
 
   res.send(pendingOrders);
 });

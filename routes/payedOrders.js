@@ -14,7 +14,7 @@ router.get("/:id", [auth], [auth], async (req, res) => {
 
 // GET ALL PAYED ORDERS
 router.get("/", [auth], [admin], async (req, res) => {
-  const payedOrders = await PayedOrder.find().select("__v");
+  const payedOrders = await PayedOrder.find()
 
   res.send(payedOrders);
 });
