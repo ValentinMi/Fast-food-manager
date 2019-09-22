@@ -49,7 +49,7 @@ router.put("/:id", [auth], [admin], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const product = await Product.findOneAndUpdate(
+  const product = await Product.findByIdAndUpdate(
     req.params.id,
     {
       name: req.body.name,
