@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -8,26 +8,25 @@ import {
   removeProductById
 } from "../../actions/product.actions";
 
-import {
-  // addProductToOrder,
-  // removeProductFromOrder,
-  // buyOrder,
-  // sendOrder
-} from "../../actions/order.actions";
+import // addProductToOrder,
+// removeProductFromOrder,
+// buyOrder,
+// sendOrder
+"../../actions/order.actions";
 
 import { becomeCustomer, becomeAdmin } from "../../actions/user.actions";
 
-import ProductCard from "../../components/ProductCard";
+import NavBar from "../../components/NavBar";
 import ProductForm from "../../components/ProductForm";
-import OrderList from "../../components/OrderList";
+
+import Board from "../../components/Board";
 
 import "./index.scss";
 
 class Main extends Component {
-
   componentDidMount() {
-  // Fetch products
-    this.props.productActions.getProducts()
+    // Fetch products
+    this.props.productActions.getProducts();
   }
 
   render() {
@@ -43,37 +42,22 @@ class Main extends Component {
     // User props actions
     const { userActions } = this.props;
 
-
     return (
-      <div className="main">
-        <div className="row row-form">
-          {// Render ProductForm if user is admin
-          user.isAdmin && <ProductForm actions={productActions} />}
-        </div>
-        <div className="row">
-          <div className="col-9">
-            <div className="row product-cont">
-              {products.map((product, index) => (
-                <div key={product.name} className="col-4">
-                  <ProductCard
-                    product={product}
-                    user={user}
-                    actions={{ orderActions, productActions }}
-                  />
-                </div>
-              ))}
-            </div>
+      <Fragment>
+        <NavBar />
+        <div className="main">
+          <div className="row row-form">
+            {// Render ProductForm if user is admin
+            user.isAdmin && <ProductForm actions={productActions} />}
           </div>
-          <div className="col-3">
-            <OrderList
-              products={products}
-              orders={orders}
-              user={user}
-              actions={{ orderActions, productActions }}
-            />
-          </div>
+          <Board
+            products={products}
+            orders={orders}
+            user={user}
+            actions={{ productActions, orderActions }}
+          />
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
@@ -88,9 +72,10 @@ const mapDispatchToProps = dispatch => ({
   // Product
   productActions: {
     getProducts: () => dispatch(getProducts()),
-    postProduct: (product) => dispatch(postProduct(product)),
-    updateProductById: (productId, data) => dispatch(updateProductById(productId, data)),
-    removeProductById: (productId) => dispatch(removeProductById(productId))
+    postProduct: product => dispatch(postProduct(product)),
+    updateProductById: (productId, data) =>
+      dispatch(updateProductById(productId, data)),
+    removeProductById: productId => dispatch(removeProductById(productId))
   },
   // Order
   orderActions: {

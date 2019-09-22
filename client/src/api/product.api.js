@@ -1,14 +1,17 @@
-import axios from "axios";
-import { apiURL } from "../config.json"
+import http from "../httpService";
+import { apiURL } from "../config.json";
 
-export const getProducts = () => axios.get(`${apiURL}/products`)
+const apiEndPoint = apiURL + "/products";
 
-export const getProductById = productId => axios.get(`${apiURL}/products/${productId}`)
+export const getProducts = () => http.get(apiEndPoint);
 
-export const postProduct = product => axios.post(`${apiURL}/products`, product)
+export const getProductById = productId =>
+  http.get(`${apiEndPoint}/${productId}`);
 
-export const updateProductById = (productId, data) => axios.put(`${apiURL}/products/${productId}`, data)
+export const postProduct = product => http.post(apiEndPoint, product);
 
-export const removeProductById = productId => axios.delete(`${apiURL}/products/${productId}`)
+export const updateProductById = (productId, data) =>
+  http.put(`${apiEndPoint}/${productId}`, data);
 
-
+export const removeProductById = productId =>
+  http.delete(`${apiEndPoint}/${productId}`);
