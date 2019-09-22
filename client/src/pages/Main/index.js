@@ -48,7 +48,6 @@ class Main extends Component {
     return (
       <div className="main">
         <div className="row row-form">
-          <UserMagicButton user={user} actions={userActions} />
           {// Render ProductForm if user is admin
           user.isAdmin && <ProductForm actions={productActions} />}
         </div>
