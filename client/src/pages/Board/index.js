@@ -8,9 +8,9 @@ import {
   removeProductById
 } from "../../actions/product.actions";
 
-import OrderList from "../OrderList";
-import ProductCard from "../ProductCard";
-import ProductForm from "../ProductForm";
+import OrderList from "../../components/OrderList";
+import ProductCard from "../../components/ProductCard";
+import ProductForm from "../../components/ProductForm";
 
 class Board extends Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ class Board extends Component {
     const { userActions } = this.props;
 
     return (
-      <div class="board">
+      <div className="board">
         <div className="row row-form">
           {// Render ProductForm if user is admin
           user.isAdmin && <ProductForm actions={productActions} />}

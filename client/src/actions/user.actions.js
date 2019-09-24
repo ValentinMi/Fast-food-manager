@@ -3,7 +3,7 @@ import * as userAPI from "../api/user.api";
 
 export const register = data => dispatch => {
   dispatch({
-    type: userConst.REGISTER,
+    type: userConst.REGISTER_USER,
     payload: userAPI.register(data)
   });
 };

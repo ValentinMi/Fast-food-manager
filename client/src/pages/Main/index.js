@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Router, Switch, Route, Redirect } from "react-router-dom";
 
 import NavBar from "../../components/NavBar";
-import Board from "../../components/Board";
+import Board from "../Board";
 import UserForm from "../UserForm";
 
 import { history } from "../../store";
@@ -17,7 +17,24 @@ class Main extends Component {
         <div className="main">
           <Switch>
             <Route exact path="/" component={Board} />
-            <Route exact path="/register" component={UserForm} />
+            <Route
+              key="register-user"
+              exact
+              path="/register"
+              component={props => <UserForm {...props} type={"register"} />}
+            />
+            <Route
+              key="login-user"
+              exact
+              path="/login"
+              component={props => <UserForm {...props} type={"login"} />}
+            />
+            <Route
+              key="update-user"
+              exact
+              path="/profil"
+              component={props => <UserForm {...props} type={"update"} />}
+            />
           </Switch>
         </div>
       </Router>
