@@ -16,10 +16,6 @@ export const loginWithJwt = () => dispatch => {
   dispatch({
     type: authConst.LOGIN_WITH_JWT
   });
-
-  dispatch({
-    type: authConst.SET_JWT
-  });
 };
 
 export const logout = () => dispatch => {
