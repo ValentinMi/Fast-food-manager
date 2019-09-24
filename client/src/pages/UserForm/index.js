@@ -30,7 +30,7 @@ class UserForm extends Component {
 
   handleSubmit = () => {
     const { user, register, updateUser } = this.props;
-    if (user.isLogged) register(this.state);
+    if (!user.isLogged) register(this.state);
     updateUser(user._id, this.state);
   };
 
