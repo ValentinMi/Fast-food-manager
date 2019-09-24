@@ -11,7 +11,6 @@ import {
 import OrderList from "../../components/OrderList";
 import ProductCard from "../../components/ProductCard";
 import ProductForm from "../../components/ProductForm";
-import authReducer from "../../reducers/auth.reducer";
 
 class Board extends Component {
   componentDidMount() {
@@ -22,6 +21,9 @@ class Board extends Component {
     // Props variables
     const { products, orders, user } = this.props;
 
+    // Destructure user obj
+    const { isAdmin } = user.data;
+
     //  Product props actions
     const { productActions } = this.props;
 
@@ -29,18 +31,18 @@ class Board extends Component {
     const { orderActions } = this.props;
 
     // User props actions
-    const { userActions } = this.props;
+    // const { userActions } = this.props;
 
     return (
       <div className="board">
         <div className="row row-form">
           {// Render ProductForm if user is admin
-          user.isAdmin && <ProductForm actions={productActions} />}
+          isAdmin && <ProductForm actions={productActions} />}
         </div>
         <div className="row">
           <div className="col-9">
             <div className="row product-cont">
-              {products.map((product, index) => (
+              {products.map(product => (
                 <div key={product.name} className="col-4">
                   <ProductCard
                     product={product}

@@ -5,6 +5,8 @@ import { store } from "./store";
 
 import Main from "./pages/Main";
 
+import "react-toastify/dist/ReactToastify.min.css";
+
 function App() {
   return (
     <Fragment>

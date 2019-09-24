@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 
 import SelectInput from "../shared/SelectInput/index";
 
@@ -11,7 +11,7 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
   const { name, stock, quantity, price } = product;
 
   // Destructure user obj
-  const { isAdmin } = user;
+  const { isAdmin } = user.data;
 
   // Destructure actions
   const { removeProductById, updateProductById } = actions.productActions;
@@ -26,8 +26,8 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
       name: product.name,
       price: product.price,
       stock: product.stock + quantity
-      })
-  }
+    });
+  };
 
   return (
     <div className="card card-product">
@@ -96,13 +96,21 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
       <div className="customer-box">
         <span>Available: {stock}</span>
         <p>{price * selectValue} €</p>
-        <SelectInput length={stock} name={name} onChange={handleSelectChange} />
-        <button
-          className="btn btn-success"
-          onClick={() => addProductToOrder(product, selectValue, price)}
-        >
-          ADD
-        </button>
+        {user.isLogged && (
+          <Fragment>
+            <SelectInput
+              length={stock}
+              name={name}
+              onChange={handleSelectChange}
+            />
+            <button
+              className="btn btn-success"
+              onClick={() => addProductToOrder(product, selectValue, price)}
+            >
+              ADD
+            </button>
+          </Fragment>
+        )}
       </div>
     );
   }

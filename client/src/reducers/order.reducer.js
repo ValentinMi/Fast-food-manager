@@ -1,4 +1,4 @@
-import * as orderConst from "../const/order.const";
+// import * as orderConst from "../const/order.const";
 
 const initState = {
   orders: {
@@ -9,16 +9,12 @@ const initState = {
 };
 
 const orderReducer = (state = initState, action) => {
-
-  // Destructure action
-  const { type, payload } = action;
-
-  switch (type) {
-   
-
-    default:
-      return state;
-  }
+  //   // Destructure action
+  //   const { type, payload } = action;
+  //   switch (type) {
+  //     default:
+  //       return state;
+  //   }
 };
 
 export default orderReducer;

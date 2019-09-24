@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const NavBar = ({ user }) => {
@@ -20,30 +21,41 @@ const NavBar = ({ user }) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/register">
-              Register
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/login">
-              Login
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/logout">
-              Logout
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/profil">
-              Profil
-            </NavLink>
-          </li>
+          {user.isLogged ? (
+            <Fragment>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/profil">
+                  Profil
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/logout">
+                  Logout
+                </NavLink>
+              </li>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/register">
+                  Register
+                </NavLink>
+              </li>
+            </Fragment>
+          )}
         </ul>
       </div>
     </nav>
   );
 };
 
-export default NavBar;
+const mapStateToProps = state => ({
+  user: state.authReducer.user
+});
+
+export default connect(mapStateToProps)(NavBar);

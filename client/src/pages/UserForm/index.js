@@ -12,6 +12,7 @@ class UserForm extends Component {
     data: {
       email: "",
       password: ""
+      // passwordConfirmation : ""
     },
     user: this.props.user
   };
@@ -50,8 +51,6 @@ class UserForm extends Component {
         break;
       case "login":
         login(data);
-        // Redirect to home
-        this.props.history.push("/");
         break;
       case "update":
         updateUser(user._id, data);

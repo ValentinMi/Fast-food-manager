@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 import "./index.scss";
 
@@ -40,7 +41,7 @@ const CardForm = ({ actions }) => {
   // Need change for joi-browser validation
   const validateForm = () => {
     if (form.name !== "" && form.stock !== "" && form.price !== "") return true;
-    return () => alert("Formulaire incomplet");
+    toast.warn("Incomplete form");
   };
   //////////////////////////////////////////////////
 
