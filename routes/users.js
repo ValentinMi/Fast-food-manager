@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
+const auth = require("../middlewares/auth");
 const { User, validate } = require("../models/user");
 const express = require("express");
 const router = express.Router();
@@ -42,6 +43,44 @@ router.post("/", async (req, res) => {
   await user.save();
 
   // Create JWT
+  const token = user.generateAuthToken();
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(_.pick(user, ["id", "email"]));
+});
+
+// UPDATE USER
+router.put("/:id", [auth], async (req, res) => {
+  // Validation
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const newUser = {
+    email: req.body.email,
+    password: req.body.password
+  };
+
+  // Hash password
+  const salt = await bcrypt.genSalt(10);
+  newUser.password = await bcrypt.hash(newUser.password, salt);
+
+  // Hash password confirmation
+  const passwordConfirmation = await bcrypt.hash(
+    req.body.passwordConfirmation,
+    salt
+  );
+
+  // Compare passwords
+  if (newUser.password !== passwordConfirmation)
+    return res
+      .status(400)
+      .send("Password and password confirmation don't match");
+
+  // Update user
+  const user = await User.findByIdAndUpdate(req.user._id, newUser);
+
+  // Create new JWT
   const token = user.generateAuthToken();
   res
     .header("x-auth-token", token)
