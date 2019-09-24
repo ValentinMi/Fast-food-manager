@@ -53,7 +53,7 @@ class UserForm extends Component {
         login(data);
         break;
       case "update":
-        updateUser(user._id, data);
+        updateUser(user.data._id, data);
         break;
       default:
         break;
@@ -65,14 +65,19 @@ class UserForm extends Component {
   // };
 
   render() {
-    // Destructure props
-    const { formType } = this.state;
+    // Destructure state
+    const { formType, user } = this.state;
 
     return (
       <div className="form-group form-user">
         <h1 className="form-title">{this.state.formType}</h1>
         <label>Email</label>
-        <input name="email" type="text" onChange={this.handleChange} />
+        <input
+          name="email"
+          type="text"
+          placeholder={user.isLogged && user.data.email}
+          onChange={this.handleChange}
+        />
         <label>Password</label>
         <input name="password" type="password" onChange={this.handleChange} />
         {formType !== "login" && (
@@ -88,11 +93,11 @@ class UserForm extends Component {
         <button
           className={
             // this.validateForm() ? "btn btn-primary" : "btn btn-primary disabled"
-            "btn btn-primary"
+            "btn btn-primary btn-submit"
           }
           onClick={this.handleSubmit}
         >
-          Register
+          {formType.toString()}
         </button>
       </div>
     );

@@ -15,7 +15,9 @@ import "./index.scss";
 
 const Main = ({ user, loginWithJwt }) => {
   useEffect(() => {
-    loginWithJwt();
+    if (localStorage.getItem("ffm-token") !== null) {
+      loginWithJwt();
+    }
   }, [loginWithJwt]);
 
   return (

@@ -8,9 +8,9 @@ export const register = data => dispatch => {
   });
 };
 
-export const updateUser = data => dispatch => {
+export const updateUser = (userId, data) => dispatch => {
   dispatch({
     type: userConst.UPDATE_USER,
-    payload: userAPI.updateUser(data)
+    payload: userAPI.updateUser(userId, data)
   });
 };

@@ -3,7 +3,8 @@
   width: 60%;
   display: flex;
   flex-direction: column;
-  .form-title {
+  .form-title,
+  .btn-submit {
     text-transform: capitalize;
   }
   h1 {

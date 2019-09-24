@@ -42,7 +42,6 @@ const authReducer = (state = initState, action) => {
       if (token !== null)
         return {
           ...state,
-          token,
           user: {
             ...state.user,
             data: jwtDecode(token),
