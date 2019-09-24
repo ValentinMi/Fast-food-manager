@@ -11,6 +11,7 @@ import {
 import OrderList from "../../components/OrderList";
 import ProductCard from "../../components/ProductCard";
 import ProductForm from "../../components/ProductForm";
+import authReducer from "../../reducers/auth.reducer";
 
 class Board extends Component {
   componentDidMount() {
@@ -67,7 +68,7 @@ class Board extends Component {
 const mapStateToProps = state => ({
   products: state.productReducer.products,
   orders: state.orderReducer.orders,
-  user: state.userReducer.user
+  user: state.authReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({

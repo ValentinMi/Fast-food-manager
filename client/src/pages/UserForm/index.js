@@ -11,8 +11,7 @@ class UserForm extends Component {
     formType: this.props.type,
     data: {
       email: "",
-      password: "",
-      passwordConfirmation: ""
+      password: ""
     },
     user: this.props.user
   };
@@ -41,13 +40,18 @@ class UserForm extends Component {
 
   handleSubmit = () => {
     const { formType, data, user } = this.state;
-    const { register, login, updateUser } = this.props;
+    const { register, updateUser } = this.props.userActions;
+    const { login } = this.props.authActions;
     switch (formType) {
       case "register":
         register(data);
+        // Redirect to login
+        this.props.history.push("/login");
         break;
       case "login":
         login(data);
+        // Redirect to home
+        this.props.history.push("/");
         break;
       case "update":
         updateUser(user._id, data);
@@ -55,8 +59,6 @@ class UserForm extends Component {
       default:
         break;
     }
-    // Go to home
-    this.props.history.push("/");
   };
 
   // validateForm = () => {
@@ -99,13 +101,17 @@ class UserForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.userReducer.user
+  user: state.authReducer.user
 });
 
 const mapDispatchToProps = dispatch => ({
-  register: data => dispatch(register(data)),
-  updateUser: (userId, data) => dispatch(updateUser(userId, data)),
-  login: data => dispatch({ data })
+  userActions: {
+    register: data => dispatch(register(data)),
+    updateUser: (userId, data) => dispatch(updateUser(userId, data))
+  },
+  authActions: {
+    login: data => dispatch(login(data))
+  }
 });
 
 export default connect(

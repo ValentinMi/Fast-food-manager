@@ -1,4 +1,4 @@
-import http from "./http.api";
+import http from "../httpService";
 import { apiURL } from "../config.json";
 
 const apiEndPoint = `${apiURL}/auth`;
