@@ -1,4 +1,4 @@
-import http from "../httpService";
+import http from "./http.api";
 import { apiURL } from "../config.json";
 
 const apiEndPoint = apiURL + "/products";

@@ -3,6 +3,9 @@
   width: 60%;
   display: flex;
   flex-direction: column;
+  .form-title {
+    text-transform: capitalize;
+  }
   h1 {
     margin: 5% 0;
   }

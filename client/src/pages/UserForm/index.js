@@ -1,27 +1,42 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import { register, updateUser } from "../../actions/user.actions";
+import { login } from "../../actions/auth.actions";
 
 import "./index.scss";
 
 class UserForm extends Component {
   state = {
-    email: "",
-    password: "",
-    passwordConfirmation: ""
+    formType: "",
+    data: {
+      email: "",
+      password: "",
+      passwordConfirmation: ""
+    },
+    user: this.props.user
   };
+
+  componentDidMount() {
+    this.setState({ formType: this.props.type });
+  }
 
   handleChange = event => {
     switch (event.target.name) {
       case "email":
-        this.setState({ email: event.target.value });
+        this.setState({
+          data: { ...this.state.data, email: event.target.value }
+        });
         break;
       case "password":
-        this.setState({ password: event.target.value });
+        this.setState({
+          data: { ...this.state.data, password: event.target.value }
+        });
         break;
       case "confirmPassword":
-        this.setState({ passwordConfirmation: event.target.value });
+        this.setState({
+          data: { ...this.state.data, passwordConfirmation: event.target.value }
+        });
         break;
       default:
         break;
@@ -29,30 +44,57 @@ class UserForm extends Component {
   };
 
   handleSubmit = () => {
-    const { user, register, updateUser } = this.props;
-    if (!user.isLogged) {
-      register(this.state);
-    } else updateUser(user._id, this.state);
+    const { formType, data, user } = this.state;
+    const { register, login, updateUser } = this.props;
+    switch (formType) {
+      case "register":
+        register(data);
+        break;
+      case "login":
+        login(data);
+        break;
+      case "update":
+        updateUser(user._id, data);
+        break;
+      default:
+        break;
+    }
+    // Go to home
+    this.props.history.push("/");
   };
+
+  // validateForm = () => {
+  //
+  // };
 
   render() {
     // Destructure props
-    const { user } = this.props;
+    const { formType } = this.state;
 
     return (
       <div className="form-group form-user">
-        {user.isLogged ? <h1>Update</h1> : <h1>Register</h1>}
+        <h1 className="form-title">{this.state.formType}</h1>
         <label>Email</label>
         <input name="email" type="text" onChange={this.handleChange} />
         <label>Password</label>
         <input name="password" type="password" onChange={this.handleChange} />
-        <label>Confirm password</label>
-        <input
-          name="confirmPassword"
-          type="password"
-          onChange={this.handleChange}
-        />
-        <button className="btn btn-primary" onClick={this.handleSubmit}>
+        {formType !== "login" && (
+          <Fragment>
+            <label>Confirm password</label>
+            <input
+              name="confirmPassword"
+              type="password"
+              onChange={this.handleChange}
+            />
+          </Fragment>
+        )}
+        <button
+          className={
+            // this.validateForm() ? "btn btn-primary" : "btn btn-primary disabled"
+            "btn btn-primary"
+          }
+          onClick={this.handleSubmit}
+        >
           Register
         </button>
       </div>
