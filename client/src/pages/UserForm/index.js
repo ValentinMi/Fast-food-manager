@@ -8,7 +8,7 @@ import "./index.scss";
 
 class UserForm extends Component {
   state = {
-    formType: "",
+    formType: this.props.type,
     data: {
       email: "",
       password: "",
@@ -16,10 +16,6 @@ class UserForm extends Component {
     },
     user: this.props.user
   };
-
-  componentDidMount() {
-    this.setState({ formType: this.props.type });
-  }
 
   handleChange = event => {
     switch (event.target.name) {
@@ -108,7 +104,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   register: data => dispatch(register(data)),
-  updateUser: (userId, data) => dispatch(updateUser(userId, data))
+  updateUser: (userId, data) => dispatch(updateUser(userId, data)),
+  login: data => dispatch({ data })
 });
 
 export default connect(
