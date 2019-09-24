@@ -45,6 +45,7 @@ class UserForm extends Component {
 
   handleSubmit = () => {
     const { formType, data, user } = this.state;
+    const { register, login, updateUser } = this.props;
     switch (formType) {
       case "register":
         register(data);
@@ -59,7 +60,7 @@ class UserForm extends Component {
         break;
     }
     // Go to home
-    // this.props.history.push("/");
+    this.props.history.push("/");
   };
 
   // validateForm = () => {
