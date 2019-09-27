@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
+const { pendingOrderSchema } = require("../models/pendingOrder");
+const { payedOrderSchema } = require("../models/payedOrder");
+
 // Schema
 const userSchema = new mongoose.Schema({
   email: {
@@ -22,8 +25,8 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   isAdmin: Boolean,
-  pendingOrder: Array,
-  payedOrder: Array
+  pendingOrder: pendingOrderSchema,
+  payedOrder: payedOrderSchema
 });
 
 // Gen AuthToken method
