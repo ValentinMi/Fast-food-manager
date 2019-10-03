@@ -17,6 +17,18 @@ Configurer l'accés à la DB dans le dossier config
 Peupler la DB grâce au script seed.js
 `node seed.js`
 
+# Loging
+
+2 comptes utilisateurs existent:
+
+admin@admin.fr ==> compte admin
+Mot de passe: "password"
+
+test@test.fr ==> compte client
+Mot de passe: "password"
+
+Vous pouvez également créer votre propre compte
+
 # Test
 
 `npm test`
