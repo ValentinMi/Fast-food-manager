@@ -19,7 +19,7 @@ class Board extends Component {
   }
   render() {
     // Props variables
-    const { products, orders, user } = this.props;
+    const { products, pendingOrder, user } = this.props;
 
     // Destructure user obj
     const { isAdmin } = user.data;
@@ -29,9 +29,6 @@ class Board extends Component {
 
     // Order props actions
     const { orderActions } = this.props;
-
-    // User props actions
-    // const { userActions } = this.props;
 
     return (
       <div className="board">
@@ -53,14 +50,7 @@ class Board extends Component {
               ))}
             </div>
           </div>
-          <div className="col-3">
-            <OrderList
-              products={products}
-              orders={orders}
-              user={user}
-              actions={{ orderActions, productActions }}
-            />
-          </div>
+          <div className="col-3">{user.isLogged && <OrderList />}</div>
         </div>
       </div>
     );
@@ -69,7 +59,8 @@ class Board extends Component {
 
 const mapStateToProps = state => ({
   products: state.productReducer.products,
-  orders: state.orderReducer.orders,
+  pendingOrder: state.pendingOrderReducer.pendingOrder,
+  payedOrders: {},
   user: state.authReducer.user
 });
 
@@ -81,19 +72,6 @@ const mapDispatchToProps = dispatch => ({
     updateProductById: (productId, data) =>
       dispatch(updateProductById(productId, data)),
     removeProductById: productId => dispatch(removeProductById(productId))
-  },
-  // Order
-  orderActions: {
-    // addProductToOrder: (product, quantity, price) =>
-    //   dispatch(addProductToOrder(product, quantity, price)),
-    // removeProductFromOrder: index => dispatch(removeProductFromOrder(index)),
-    // buyOrder: orderList => dispatch(buyOrder(orderList)),
-    // sendOrder: index => dispatch(sendOrder(index))
-  },
-  // User
-  userActions: {
-    // becomeCustomer: () => dispatch(becomeCustomer()),
-    // becomeAdmin: () => dispatch(becomeAdmin())
   }
 });
 

@@ -1,8 +1,10 @@
 const { Product } = require("./models/product");
+const { PayedOrder } = require("./models/payedOrder");
 const mongoose = require("mongoose");
+const moment = require("moment");
 const config = require("config");
 
-const data = [
+const productsData = [
   {
     name: "Hamburger",
     price: 4,
@@ -30,6 +32,25 @@ const data = [
   }
 ];
 
+const payedOrderData = [
+  {
+    products: [
+      {
+        name: "Hamburger",
+        quantity: 3,
+        price: 12
+      },
+      {
+        name: "Tacos",
+        quatity: 2,
+        price: 15
+      }
+    ],
+    totalPrice: 27,
+    date: moment().toJSON()
+  }
+];
+
 async function seed() {
   await mongoose.connect(config.get("db"), {
     useNewUrlParser: true,
@@ -37,8 +58,10 @@ async function seed() {
   });
 
   await Product.deleteMany({});
+  await PayedOrder.deleteMany({});
 
-  await Product.insertMany(data);
+  await Product.insertMany(productsData);
+  await PayedOrder.insertMany(payedOrderData);
 
   mongoose.disconnect();
 

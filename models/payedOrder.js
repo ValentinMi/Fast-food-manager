@@ -1,15 +1,16 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const moment = require("moment");
 
 const payedOrderSchema = new mongoose.Schema({
   products: {
     type: Array,
-    minlength: 1
+    minlength: 1,
+    required: true
   },
   totalPrice: {
     type: Number,
-    min: 0
+    min: 0,
+    required: true
   },
   date: {
     type: Date,
@@ -23,7 +24,11 @@ const PayedOrder = mongoose.model("PayedOrder", payedOrderSchema);
 // Validation
 function validatePayedOrder(payedOrder) {
   const schema = {
-    payedOrder: Joi.array()
+    products: Joi.array()
+      .minlength(1)
+      .required(),
+    totalPrice: Joi.number().required(),
+    date: Joi.date()
   };
 
   return Joi.validate(payedOrder, schema);

@@ -4,7 +4,7 @@ import SelectInput from "../shared/SelectInput/index";
 
 import "./index.scss";
 
-const ProductCard = ({ user, product, actions, inOrderList }) => {
+const ProductCard = ({ user, product, inOrderList }) => {
   const [selectValue, setSelectValue] = useState(1);
 
   // Destructure product obj
@@ -14,19 +14,19 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
   const { isAdmin } = user.data;
 
   // Destructure actions
-  const { removeProductById, updateProductById } = actions.productActions;
-  const { addProductToOrder, removeProductFromOrder } = actions.orderActions;
+  // const { removeProductById, updateProductById } = actions.productActions;
+  // const { addProductToOrder, removeProductFromOrder } = actions.orderActions;
 
   const handleSelectChange = newValue => {
     setSelectValue(newValue);
   };
 
   const handleProductRefound = quantity => {
-    updateProductById(product._id, {
-      name: product.name,
-      price: product.price,
-      stock: product.stock + quantity
-    });
+    // updateProductById(product._id, {
+    //   name: product.name,
+    //   price: product.price,
+    //   stock: product.stock + quantity
+    // });
   };
 
   return (
@@ -58,7 +58,7 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
         {!isAdmin && (
           <button
             className="btn btn-danger"
-            onClick={() => removeProductFromOrder()}
+            // onClick={() => removeProductFromOrder()}
           >
             Remove
           </button>
@@ -75,14 +75,14 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
         <SelectInput length={50} name={name} onChange={handleSelectChange} />
         <div className="admin-btn-cont">
           <button
-            onClick={() => handleProductRefound(selectValue)}
+            // onClick={() => handleProductRefound(selectValue)}
             className="btn btn-success btn-admin"
           >
             Refound
           </button>
           <button
             className="btn btn-danger btn-admin"
-            onClick={() => removeProductById(product._id)}
+            // onClick={() => removeProductById(product._id)}
           >
             Delete product
           </button>
@@ -105,7 +105,7 @@ const ProductCard = ({ user, product, actions, inOrderList }) => {
             />
             <button
               className="btn btn-success"
-              onClick={() => addProductToOrder(product, selectValue, price)}
+              // onClick={() => addProductToOrder(product, selectValue, price)}
             >
               ADD
             </button>

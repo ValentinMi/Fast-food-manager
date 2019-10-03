@@ -1,17 +1,33 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { connect } from "react-redux";
+
+import {
+  savePendingOrderLocally,
+  getSavedPendingOrder,
+  removeSavedPendingOrder
+} from "../../actions/pendingOrder.actions";
 
 import ProductCard from "../ProductCard/index";
 
 import "./index.scss";
 
-const OrderList = ({ products, orders, user, actions }) => {
+const OrderList = ({
+  user,
+  pendingOrder,
+  payedOrders,
+  pendingOrderActions
+}) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // Destructure order
-  const { pendingOrder, payedOrders } = orders;
+  // Destructure actions props
+  const { savePendingOrderLocally, getSavedPendingOrder } = pendingOrderActions;
 
-  // Destructure actions
-  const { productActions, orderActions } = actions;
+  // On mount
+  // eslint-disable-next-line
+  useEffect(() => {
+    // Get saved pendingOrder
+    getSavedPendingOrder(user);
+  }, []);
 
   const handleTotalPrice = array => {
     let total = 0;
@@ -21,37 +37,27 @@ const OrderList = ({ products, orders, user, actions }) => {
     return total;
   };
 
-  const handleBuy = () => {
-    // Subtract bought quantity from each product stock
-    pendingOrder.forEach(product => {
-      let productIndex = products.findIndex(p => p.name === product.name);
-      productActions.substractProduct(productIndex, product.quantity);
-    });
-    // Send this pendingOrder to payedOrder
-    orderActions.buyOrder(pendingOrder);
-  };
+  // const handleBuy = () => {
+  //   // Subtract bought quantity from each product stock
+  // };
 
-  // Recalcul price after each change in OrderList
-  // eslint-disable-next-line
-  useEffect(() => {
-    setTotalPrice(handleTotalPrice(pendingOrder));
-  });
+  // Destructure user obj
+  const { isAdmin } = user.data;
 
   return (
     <Fragment>
-      <h1 className="order-title">{user.isAdmin ? "Payed" : "Your order:"}</h1>
+      <h1 className="order-title">{isAdmin ? "Payed" : "Your order:"}</h1>
       <div className="order-cont">
         <div className="order-list">
-          {user.isAdmin
+          {isAdmin
             ? payedOrders.map((order, orderIndex) => (
                 <div className="order-payed" key={`${order + orderIndex}`}>
                   <h1>N°{orderIndex}</h1>
-                  {order.map((product, index) => (
+                  {order.map(product => (
                     <ProductCard
                       key={`payed${product.name}${orderIndex}`}
                       user={user}
                       product={product}
-                      actions={{ orderActions, productActions }}
                       inOrderList={true}
                     />
                   ))}
@@ -61,7 +67,7 @@ const OrderList = ({ products, orders, user, actions }) => {
                     </span>
                     <button
                       className="btn btn-warning btn-order-send"
-                      onClick={() => orderActions.sendOrder(orderIndex)}
+                      // onClick={() => orderActions.sendOrder(orderIndex)}
                     >
                       Send
                     </button>
@@ -73,17 +79,17 @@ const OrderList = ({ products, orders, user, actions }) => {
                   key={`pending${product.name}${index}`}
                   user={user}
                   product={product}
-                  actions={{ orderActions, productActions }}
+                  // actions={productActions}
                   inOrderList={true}
                 />
               ))}
         </div>
-        {!user.isAdmin && (
+        {!isAdmin && (
           <div className="buy-box">
             <span className="price">{totalPrice} €</span>
             <button
               className="btn btn-lg btn-success btn-buy"
-              onClick={() => handleBuy()}
+              // onClick={() => handleBuy()}
             >
               BUY
             </button>
@@ -94,4 +100,25 @@ const OrderList = ({ products, orders, user, actions }) => {
   );
 };
 
-export default OrderList;
+const mapStateToProps = state => ({
+  pendingOrder: state.pendingOrderReducer.pendingOrder,
+  payedOrders: state.payedOrderReducer.payedOrders,
+  user: state.authReducer.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  // PendingOrderobject
+  pendingOrderActions: {
+    savePendingOrderLocally: (pendingOrder, user) =>
+      dispatch(savePendingOrderLocally(pendingOrder, user)),
+    getSavedPendingOrder: user => dispatch(getSavedPendingOrder(user)),
+    removeSavedPendingOrder: user => dispatch(removeSavedPendingOrder(user))
+  },
+  // PayedOrders
+  payedOrdersActions: {}
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrderList);
