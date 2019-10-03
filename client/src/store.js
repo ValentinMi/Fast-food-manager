@@ -8,7 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 export const history = createHistory();
 
-const middlewares = [promise, thunk, routerMiddleware(history)];
+const middlewares = [thunk, promise, routerMiddleware(history)];
 
 export const store = createStore(
   reducers,

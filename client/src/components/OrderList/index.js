@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 
 import {
   savePendingOrderLocally,
-  getSavedPendingOrder,
-  removeSavedPendingOrder
+  getSavedPendingOrder
 } from "../../actions/pendingOrder.actions";
+
+import { updateProductById } from "../../actions/product.actions";
+import { removeSavedPendingOrder } from "../../actions/pendingOrder.actions";
 
 import ProductCard from "../ProductCard/index";
 
@@ -13,14 +15,15 @@ import "./index.scss";
 
 const OrderList = ({
   user,
+  products,
   pendingOrder,
   payedOrders,
-  pendingOrderActions
+  savePendingOrderLocally,
+  getSavedPendingOrder,
+  updateProductById,
+  removeSavedPendingOrder
 }) => {
   const [totalPrice, setTotalPrice] = useState(0);
-
-  // Destructure actions props
-  const { savePendingOrderLocally, getSavedPendingOrder } = pendingOrderActions;
 
   // On mount
   // eslint-disable-next-line
@@ -29,17 +32,35 @@ const OrderList = ({
     getSavedPendingOrder(user);
   }, []);
 
-  const handleTotalPrice = array => {
+  // Reload total price and save when pendingOrder change
+  useEffect(() => {
+    handleTotalPrice();
+    savePendingOrderLocally(pendingOrder, user);
+  }, [pendingOrder]);
+
+  const handleTotalPrice = () => {
     let total = 0;
-    array.forEach(product => {
-      total += product.price;
+    pendingOrder.forEach(product => {
+      total += product.price * product.quantity;
     });
-    return total;
+    setTotalPrice(total);
   };
 
-  // const handleBuy = () => {
-  //   // Subtract bought quantity from each product stock
-  // };
+  const handleBuy = () => {
+    // Subtract bought quantity from each product stock
+    pendingOrder.forEach(orderProduct => {
+      // Find product
+      let product = products.find(p => p.name === orderProduct.name);
+      // Update stock
+      updateProductById(product._id, {
+        name: product.name,
+        price: product.price,
+        stock: product.stock - orderProduct.quantity
+      });
+      // Remove save
+      removeSavedPendingOrder(user);
+    });
+  };
 
   // Destructure user obj
   const { isAdmin } = user.data;
@@ -53,18 +74,14 @@ const OrderList = ({
             ? payedOrders.map((order, orderIndex) => (
                 <div className="order-payed" key={`${order + orderIndex}`}>
                   <h1>N°{orderIndex}</h1>
-                  {order.map(product => (
+                  {pendingOrder.map(product => (
                     <ProductCard
                       key={`payed${product.name}${orderIndex}`}
-                      user={user}
-                      product={product}
                       inOrderList={true}
                     />
                   ))}
                   <div className="order-payed-footer">
-                    <span className="order-price">
-                      {handleTotalPrice(order)} €
-                    </span>
+                    <span className="order-price">{totalPrice} €</span>
                     <button
                       className="btn btn-warning btn-order-send"
                       // onClick={() => orderActions.sendOrder(orderIndex)}
@@ -89,7 +106,7 @@ const OrderList = ({
             <span className="price">{totalPrice} €</span>
             <button
               className="btn btn-lg btn-success btn-buy"
-              // onClick={() => handleBuy()}
+              onClick={() => handleBuy()}
             >
               BUY
             </button>
@@ -103,19 +120,20 @@ const OrderList = ({
 const mapStateToProps = state => ({
   pendingOrder: state.pendingOrderReducer.pendingOrder,
   payedOrders: state.payedOrderReducer.payedOrders,
-  user: state.authReducer.user
+  user: state.authReducer.user,
+  products: state.productReducer.products
 });
 
 const mapDispatchToProps = dispatch => ({
-  // PendingOrderobject
-  pendingOrderActions: {
-    savePendingOrderLocally: (pendingOrder, user) =>
-      dispatch(savePendingOrderLocally(pendingOrder, user)),
-    getSavedPendingOrder: user => dispatch(getSavedPendingOrder(user)),
-    removeSavedPendingOrder: user => dispatch(removeSavedPendingOrder(user))
-  },
-  // PayedOrders
-  payedOrdersActions: {}
+  // PendingOrder
+  savePendingOrderLocally: (pendingOrder, user) =>
+    dispatch(savePendingOrderLocally(pendingOrder, user)),
+  getSavedPendingOrder: user => dispatch(getSavedPendingOrder(user)),
+  removeSavedPendingOrder: user => dispatch(removeSavedPendingOrder(user)),
+
+  // Product
+  updateProductById: (productId, data) =>
+    dispatch(updateProductById(productId, data))
 });
 
 export default connect(

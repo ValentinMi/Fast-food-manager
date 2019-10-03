@@ -1,17 +1,5 @@
 const initState = {
-  payedOrders: [
-    [
-      {
-        products: {
-          name: "Hamb",
-          quantity: 3,
-          price: 10
-        },
-        totalPrice: 10,
-        date: new Date()
-      }
-    ]
-  ]
+  payedOrders: []
 };
 
 const payedOrderReducer = (state = initState, action) => {

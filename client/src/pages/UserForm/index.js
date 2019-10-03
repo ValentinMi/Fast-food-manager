@@ -75,7 +75,7 @@ class UserForm extends Component {
         <input
           name="email"
           type="text"
-          placeholder={user.isLogged && user.data.email}
+          placeholder={user.isLogged ? user.data.email : ""}
           onChange={this.handleChange}
         />
         <label>Password</label>

@@ -1,18 +1,18 @@
 import * as pendingOrderConst from "../const/pendingOrder.const";
 
-export const addProductToOrder = (product, quantity, price) => ({
+export const addProductToOrder = (name, quantity, price) => ({
   type: pendingOrderConst.ADD_PRODUCT_TO_PENDING_ORDER,
   payload: {
-    product,
+    name,
     quantity,
     price
   }
 });
 
-export const removeProductFromOrder = index => ({
+export const removeProductFromOrder = name => ({
   type: pendingOrderConst.REMOVE_PRODUCT_FROM_PENDING_ORDER,
   payload: {
-    index
+    name
   }
 });
 

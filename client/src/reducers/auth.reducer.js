@@ -39,7 +39,11 @@ const authReducer = (state = initState, action) => {
     case authConst.LOGIN_WITH_JWT:
       // Get jwt from localstorage and decode it
       let token = localStorage.getItem(tokenKey);
-      if (token !== null)
+      // If token exist
+      if (token !== null) {
+        // SET TOKEN IN AXIOS HEADERS
+        setJwt(token);
+
         return {
           ...state,
           user: {
@@ -49,6 +53,8 @@ const authReducer = (state = initState, action) => {
             isLogged: true
           }
         };
+      }
+      // If not return
       return { ...initState };
     case authConst.LOGOUT:
       localStorage.removeItem(tokenKey);

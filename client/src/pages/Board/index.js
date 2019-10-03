@@ -19,16 +19,13 @@ class Board extends Component {
   }
   render() {
     // Props variables
-    const { products, pendingOrder, user } = this.props;
+    const { products, user } = this.props;
 
     // Destructure user obj
     const { isAdmin } = user.data;
 
-    //  Product props actions
-    const { productActions } = this.props;
-
-    // Order props actions
-    const { orderActions } = this.props;
+    //  Props actions
+    const { productActions, pendingOrderActions } = this.props;
 
     return (
       <div className="board">
@@ -41,11 +38,7 @@ class Board extends Component {
             <div className="row product-cont">
               {products.map(product => (
                 <div key={product.name} className="col-4">
-                  <ProductCard
-                    product={product}
-                    user={user}
-                    actions={{ orderActions, productActions }}
-                  />
+                  <ProductCard product={product} user={user} />
                 </div>
               ))}
             </div>

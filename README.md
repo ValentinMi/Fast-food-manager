@@ -13,6 +13,13 @@ You need mongoDB installed
 # DB
 
 Configurer l'accés à la DB dans le dossier config
+let test = ["toto", "tata", "tutu"];
+
+function remove(elmIndex) {
+test = test.filter((elm, index) => index !== elmIndex);
+}
+
+remove(1);
 
 Peupler la DB grâce au script seed.js
 `node seed.js`

@@ -1,21 +1,29 @@
 import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
+
+import {
+  addProductToOrder,
+  removeProductFromOrder
+} from "../../actions/pendingOrder.actions";
 
 import SelectInput from "../shared/SelectInput/index";
 
 import "./index.scss";
 
-const ProductCard = ({ user, product, inOrderList }) => {
+const ProductCard = ({
+  user,
+  product,
+  inOrderList,
+  addProductToOrder,
+  removeProductFromOrder
+}) => {
   const [selectValue, setSelectValue] = useState(1);
 
   // Destructure product obj
   const { name, stock, quantity, price } = product;
 
-  // Destructure user obj
+  // Destructure user
   const { isAdmin } = user.data;
-
-  // Destructure actions
-  // const { removeProductById, updateProductById } = actions.productActions;
-  // const { addProductToOrder, removeProductFromOrder } = actions.orderActions;
 
   const handleSelectChange = newValue => {
     setSelectValue(newValue);
@@ -51,14 +59,15 @@ const ProductCard = ({ user, product, inOrderList }) => {
   // UI //
 
   function renderOrderUI() {
+    console.log();
     return (
       <div className="order-box">
         <span>Quantity: {quantity}</span>
-        <p>{price} €</p>
+        <p>{price * quantity} €</p>
         {!isAdmin && (
           <button
             className="btn btn-danger"
-            // onClick={() => removeProductFromOrder()}
+            onClick={() => removeProductFromOrder(name)}
           >
             Remove
           </button>
@@ -105,7 +114,7 @@ const ProductCard = ({ user, product, inOrderList }) => {
             />
             <button
               className="btn btn-success"
-              // onClick={() => addProductToOrder(product, selectValue, price)}
+              onClick={() => addProductToOrder(name, selectValue, price)}
             >
               ADD
             </button>
@@ -116,4 +125,19 @@ const ProductCard = ({ user, product, inOrderList }) => {
   }
 };
 
-export default ProductCard;
+const mapStateToProps = state => ({
+  products: state.productReducer.products,
+  pendingOrder: state.pendingOrderReducer.pendingOrder,
+  user: state.authReducer.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  addProductToOrder: (name, quantity, totalPrice) =>
+    dispatch(addProductToOrder(name, quantity, totalPrice)),
+  removeProductFromOrder: name => dispatch(removeProductFromOrder(name))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductCard);
