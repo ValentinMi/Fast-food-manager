@@ -35,7 +35,10 @@ const OrderList = ({
   // Reload total price and save when pendingOrder change
   useEffect(() => {
     handleTotalPrice();
-    savePendingOrderLocally(pendingOrder, user);
+    // If customer ==> save locally
+    if (!user.data.isAdmin) {
+      savePendingOrderLocally(pendingOrder, user);
+    }
   }, [pendingOrder]);
 
   const handleTotalPrice = () => {

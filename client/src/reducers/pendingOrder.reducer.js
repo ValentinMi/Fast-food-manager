@@ -49,15 +49,19 @@ const pendingOrderReducer = (state = initState, action) => {
 
     case pendingOrderConst.GET_SAVED_PENDING_ORDER:
       // Get order from localStorage with user email
-      const savedOrder = localStorage.getItem(
-        `pendingOrderFrom${payload.user.data.email}`
+      let savedOrder = JSON.parse(
+        localStorage.getItem(`pendingOrderFrom${payload.user.data.email}`)
       );
 
       // Check if it's stored
-      // If null
+      // If null => return
       if (savedOrder === null) return { ...state };
-      // If order is stored
-      return { ...state, pendingOrder: JSON.parse(savedOrder) };
+      // If order is stored => check if all products still exists
+      // const products = payload.products;
+
+      // console.log(products, "test");
+
+      return { ...state, pendingOrder: savedOrder };
 
     case pendingOrderConst.REMOVE_SAVED_PENDING_ORDER:
       localStorage.removeItem(`pendingOrderFrom${payload.user.data.email}`);

@@ -40,32 +40,3 @@ const productReducer = (state = initState, action) => {
 };
 
 export default productReducer;
-
-// ADD NEW PRODUCT
-// case productConst.ADD_PRODUCT:
-//   return { ...state, products: [...state.products, payload] };
-
-// // REMOVE PRODUCT
-// case productConst.REMOVE_PRODUCT:
-//   //  Reverse filter to remove a product
-//   newProducts = newProducts.filter(
-//     p => p !== state.products[payload.index]
-//   );
-//   return {
-//     ...state,
-//     products: newProducts
-//   };
-
-// // REFOUND
-// case productConst.REFOUND_PRODUCT:
-//   // Add selected value
-//   newProducts[payload.index].stock += payload.selectValue;
-//   return {
-//     ...state,
-//     products: newProducts
-//   };
-
-// // SUBSTRACT
-// case productConst.SUBSTRACT_PRODUCT:
-//   newProducts[payload.index].stock -= payload.value;
-//   return { ...state, products: newProducts };

@@ -8,8 +8,8 @@ import authReducer from "./auth.reducer";
 
 export default combineReducers({
   productReducer,
-  pendingOrderReducer,
   payedOrderReducer,
   userReducer,
-  authReducer
+  authReducer,
+  pendingOrderReducer
 });

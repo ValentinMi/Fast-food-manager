@@ -6,6 +6,11 @@ import {
   removeProductFromOrder
 } from "../../actions/pendingOrder.actions";
 
+import {
+  removeProductById,
+  updateProductById
+} from "../../actions/product.actions";
+
 import SelectInput from "../shared/SelectInput/index";
 
 import "./index.scss";
@@ -15,7 +20,9 @@ const ProductCard = ({
   product,
   inOrderList,
   addProductToOrder,
-  removeProductFromOrder
+  removeProductFromOrder,
+  removeProductById,
+  updateProductById
 }) => {
   const [selectValue, setSelectValue] = useState(1);
 
@@ -30,11 +37,11 @@ const ProductCard = ({
   };
 
   const handleProductRefound = quantity => {
-    // updateProductById(product._id, {
-    //   name: product.name,
-    //   price: product.price,
-    //   stock: product.stock + quantity
-    // });
+    updateProductById(product._id, {
+      name: product.name,
+      price: product.price,
+      stock: product.stock + quantity
+    });
   };
 
   return (
@@ -84,14 +91,14 @@ const ProductCard = ({
         <SelectInput length={50} name={name} onChange={handleSelectChange} />
         <div className="admin-btn-cont">
           <button
-            // onClick={() => handleProductRefound(selectValue)}
+            onClick={() => handleProductRefound(selectValue)}
             className="btn btn-success btn-admin"
           >
             Refound
           </button>
           <button
             className="btn btn-danger btn-admin"
-            // onClick={() => removeProductById(product._id)}
+            onClick={() => removeProductById(product._id)}
           >
             Delete product
           </button>
@@ -132,9 +139,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  // Pending Order
   addProductToOrder: (name, quantity, totalPrice) =>
     dispatch(addProductToOrder(name, quantity, totalPrice)),
-  removeProductFromOrder: name => dispatch(removeProductFromOrder(name))
+  removeProductFromOrder: name => dispatch(removeProductFromOrder(name)),
+  // Product
+  removeProductById: productId => dispatch(removeProductById(productId)),
+  updateProductById: (productId, data) =>
+    dispatch(updateProductById(productId, data))
 });
 
 export default connect(
