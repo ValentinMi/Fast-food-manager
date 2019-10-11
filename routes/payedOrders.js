@@ -29,13 +29,40 @@ router.post("/", [auth], async (req, res) => {
   let newPayedOrder = new PayedOrder({
     products: req.body.products,
     totalPrice: req.body.totalPrice,
-    date: moment().toJSON()
+    date: moment().toJSON(),
+    user: req.user
   });
 
   // Save new payed order
   await newPayedOrder.save();
 
   res.send(newPayedOrder);
+});
+
+// UPDATE PAYED ORDER
+router.put("/:id", [auth], [admin], async (req, res) => {
+  // Validation
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const payedOrder = await PayedOrder.findOneAndUpdate(
+    req.params.id,
+    req.newOrder,
+    { new: true }
+  );
+
+  if (!payedOrder) return res.status(404).send("Product not found");
+
+  res.send(payedOrder);
+});
+
+// DELETE PAYED ORDER
+router.delete("/:id", [auth], [admin], async (req, res) => {
+  const payedOrder = await PayedOrder.findOneAndDelete(req.params.id);
+
+  if (!payedOrder) return res.status(404).send("Product not found");
+
+  res.send(payedOrder);
 });
 
 module.exports = router;

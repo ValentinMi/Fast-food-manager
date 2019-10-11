@@ -1,6 +1,8 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
+const userSchema = require("./user");
+
 const payedOrderSchema = new mongoose.Schema({
   products: {
     type: Array,
@@ -15,7 +17,8 @@ const payedOrderSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true
-  }
+  },
+  user: userSchema
 });
 
 // Create model with his schema
