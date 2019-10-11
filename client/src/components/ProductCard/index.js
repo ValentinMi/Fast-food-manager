@@ -120,8 +120,13 @@ const ProductCard = ({
               onChange={handleSelectChange}
             />
             <button
-              className="btn btn-success"
-              onClick={() => addProductToOrder(name, selectValue, price)}
+              className={
+                stock == 0 ? "btn btn-success disabled" : "btn btn-success"
+              }
+              onClick={
+                stock !== 0 &&
+                (() => addProductToOrder(name, selectValue, price))
+              }
             >
               ADD
             </button>

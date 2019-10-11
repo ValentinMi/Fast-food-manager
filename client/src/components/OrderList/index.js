@@ -8,6 +8,10 @@ import {
 
 import { updateProductById } from "../../actions/product.actions";
 import { removeSavedPendingOrder } from "../../actions/pendingOrder.actions";
+import {
+  postPayedOrder,
+  getPayedOrders
+} from "../../actions/payedOrder.actions";
 
 import ProductCard from "../ProductCard/index";
 
@@ -21,7 +25,8 @@ const OrderList = ({
   savePendingOrderLocally,
   getSavedPendingOrder,
   updateProductById,
-  removeSavedPendingOrder
+  removeSavedPendingOrder,
+  postPayedOrder
 }) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -30,6 +35,8 @@ const OrderList = ({
   useEffect(() => {
     // Get saved pendingOrder
     getSavedPendingOrder(user);
+    // Get payedOrders
+    getPayedOrders();
   }, []);
 
   // Reload total price and save when pendingOrder change
@@ -60,6 +67,8 @@ const OrderList = ({
         price: product.price,
         stock: product.stock - orderProduct.quantity
       });
+      // Post to payedOrder
+      postPayedOrder(pendingOrder);
       // Remove save
       removeSavedPendingOrder(user);
     });
@@ -136,7 +145,11 @@ const mapDispatchToProps = dispatch => ({
 
   // Product
   updateProductById: (productId, data) =>
-    dispatch(updateProductById(productId, data))
+    dispatch(updateProductById(productId, data)),
+
+  // PayedOrder
+  getPayedOrders: () => dispatch(getPayedOrders()),
+  postPayedOrder: order => dispatch(postPayedOrder(order))
 });
 
 export default connect(

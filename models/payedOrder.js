@@ -25,7 +25,7 @@ const PayedOrder = mongoose.model("PayedOrder", payedOrderSchema);
 function validatePayedOrder(payedOrder) {
   const schema = {
     products: Joi.array()
-      .minlength(1)
+      .min(1)
       .required(),
     totalPrice: Joi.number().required(),
     date: Joi.date()
