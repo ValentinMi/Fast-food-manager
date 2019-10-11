@@ -16,22 +16,37 @@ export const getPayedOrderById = id => dispatch => {
 };
 
 export const postPayedOrder = order => dispatch => {
-    dispatch({
-        type: payedOrderConst.POST_PAYED_ORDER,
-        payload: payedOrderAPI.postPayedOrder(order)
-    })
+  dispatch({
+    type: payedOrderConst.POST_PAYED_ORDER,
+    payload: payedOrderAPI.postPayedOrder(order)
+  });
+
+  dispatch({
+    type: payedOrderConst.GET_PAYED_ORDERS,
+    payload: payedOrderAPI.getPayedOrders()
+  });
 };
 
 export const updatePayedOrderById = (id, newOrder) => dispatch => {
-    dispatch({
-        type: payedOrderConst.UPDATE_PAYED_ORDER;
-        payload: payedOrderAPI.updatePayedOrderById(id, newOrder)
-    })
+  dispatch({
+    type: payedOrderConst.UPDATE_PAYED_ORDER,
+    payload: payedOrderAPI.updatePayedOrderById(id, newOrder)
+  });
+
+  dispatch({
+    type: payedOrderConst.GET_PAYED_ORDERS,
+    payload: payedOrderAPI.getPayedOrders()
+  });
 };
 
 export const removePayedOrderById = id => dispatch => {
-    dispatch({
-        type :payedOrderConst.REMOVE_PAYED_ORDER,
-        payload: payedOrderAPI.removePayedOrderById(id)
-    })
-} 
+  dispatch({
+    type: payedOrderConst.REMOVE_PAYED_ORDER,
+    payload: payedOrderAPI.removePayedOrderById(id)
+  });
+
+  dispatch({
+    type: payedOrderConst.GET_PAYED_ORDERS,
+    payload: payedOrderAPI.getPayedOrders()
+  });
+};
