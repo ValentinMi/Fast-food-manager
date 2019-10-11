@@ -68,10 +68,10 @@ const OrderList = ({
         stock: product.stock - orderProduct.quantity
       });
       // Post to payedOrder
-      postPayedOrder(pendingOrder);
       // Remove save
       removeSavedPendingOrder(user);
     });
+    postPayedOrder(pendingOrder, totalPrice);
   };
 
   // Destructure user obj
@@ -149,7 +149,8 @@ const mapDispatchToProps = dispatch => ({
 
   // PayedOrder
   getPayedOrders: () => dispatch(getPayedOrders()),
-  postPayedOrder: order => dispatch(postPayedOrder(order))
+  postPayedOrder: (order, totalPrice) =>
+    dispatch(postPayedOrder(order, totalPrice))
 });
 
 export default connect(

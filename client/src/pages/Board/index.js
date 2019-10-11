@@ -53,7 +53,6 @@ class Board extends Component {
 const mapStateToProps = state => ({
   products: state.productReducer.products,
   pendingOrder: state.pendingOrderReducer.pendingOrder,
-  payedOrders: {},
   user: state.authReducer.user
 });
 

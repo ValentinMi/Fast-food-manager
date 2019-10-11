@@ -15,10 +15,10 @@ export const getPayedOrderById = id => dispatch => {
   });
 };
 
-export const postPayedOrder = order => dispatch => {
+export const postPayedOrder = (order, totalPrice) => dispatch => {
   dispatch({
     type: payedOrderConst.POST_PAYED_ORDER,
-    payload: payedOrderAPI.postPayedOrder(order)
+    payload: payedOrderAPI.postPayedOrder(order, totalPrice)
   });
 
   dispatch({

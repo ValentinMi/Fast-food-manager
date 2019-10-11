@@ -32,6 +32,7 @@ const payedOrderReducer = (state = initState, action) => {
     case payedOrderConst.POST_PAYED_ORDER_PENDING:
       return { ...state, isLoading: true };
     case payedOrderConst.POST_PAYED_ORDER_REJECTED:
+      console.log(payload);
       return { ...state, isLoading: false, error: payload.message };
     case payedOrderConst.POST_PAYED_ORDER_FULFILLED:
       return { ...state, isLoading: false };

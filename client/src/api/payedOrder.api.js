@@ -7,7 +7,8 @@ export const getPayedOrders = () => http.get(apiEndPoint);
 
 export const getPayedOrderById = id => http.get(apiEndPoint, id);
 
-export const postPayedOrder = order => http.post(apiEndPoint, order);
+export const postPayedOrder = (order, totalPrice) =>
+  http.post(apiEndPoint, { products: order, totalPrice });
 
 export const updatePayedOrderById = (id, newOrder) =>
   http.put(apiEndPoint, id, newOrder);

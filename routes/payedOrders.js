@@ -3,6 +3,7 @@ const admin = require("../middlewares/admin");
 const { PayedOrder, validate } = require("../models/payedOrder");
 const express = require("express");
 const router = express.Router();
+const moment = require("moment");
 
 // GET PAYED ORDER
 router.get("/:id", [auth], [auth], async (req, res) => {
@@ -14,7 +15,7 @@ router.get("/:id", [auth], [auth], async (req, res) => {
 
 // GET ALL PAYED ORDERS
 router.get("/", [auth], [admin], async (req, res) => {
-  const payedOrders = await PayedOrder.find()
+  const payedOrders = await PayedOrder.find();
 
   res.send(payedOrders);
 });
@@ -27,7 +28,8 @@ router.post("/", [auth], async (req, res) => {
 
   let newPayedOrder = new PayedOrder({
     products: req.body.products,
-    totalPrice: req.body.totalPrice
+    totalPrice: req.body.totalPrice,
+    date: moment().toJSON()
   });
 
   // Save new payed order
