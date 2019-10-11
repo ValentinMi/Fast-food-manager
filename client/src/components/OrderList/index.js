@@ -26,6 +26,7 @@ const OrderList = ({
   getSavedPendingOrder,
   updateProductById,
   removeSavedPendingOrder,
+  getPayedOrders,
   postPayedOrder
 }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -36,7 +37,9 @@ const OrderList = ({
     // Get saved pendingOrder
     getSavedPendingOrder(user);
     // Get payedOrders
-    getPayedOrders();
+    if (user.data.isAdmin) {
+      getPayedOrders();
+    }
   }, []);
 
   // Reload total price and save when pendingOrder change
@@ -86,14 +89,15 @@ const OrderList = ({
             ? payedOrders.map((order, orderIndex) => (
                 <div className="order-payed" key={`${order + orderIndex}`}>
                   <h1>N°{orderIndex}</h1>
-                  {pendingOrder.map(product => (
+                  {order.products.map(product => (
                     <ProductCard
                       key={`payed${product.name}${orderIndex}`}
                       inOrderList={true}
+                      product={product}
                     />
                   ))}
                   <div className="order-payed-footer">
-                    <span className="order-price">{totalPrice} €</span>
+                    <span className="order-price">{order.totalPrice} €</span>
                     <button
                       className="btn btn-warning btn-order-send"
                       // onClick={() => orderActions.sendOrder(orderIndex)}

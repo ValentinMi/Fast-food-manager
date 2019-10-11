@@ -66,7 +66,6 @@ const ProductCard = ({
   // UI //
 
   function renderOrderUI() {
-    console.log();
     return (
       <div className="order-box">
         <span>Quantity: {quantity}</span>
@@ -121,7 +120,7 @@ const ProductCard = ({
             />
             <button
               className={
-                stock == 0 ? "btn btn-success disabled" : "btn btn-success"
+                stock === 0 ? "btn btn-success disabled" : "btn btn-success"
               }
               onClick={
                 stock !== 0 &&

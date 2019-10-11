@@ -8,15 +8,15 @@ export const getPayedOrders = () => dispatch => {
   });
 };
 
-export const getPayedOrderById = id => dispatch => {
-  dispatch({
+export const getPayedOrderById = id => async dispatch => {
+  await dispatch({
     type: payedOrderConst.GET_PAYED_ORDER,
     payload: payedOrderAPI.getPayedOrderById(id)
   });
 };
 
-export const postPayedOrder = (order, totalPrice) => dispatch => {
-  dispatch({
+export const postPayedOrder = (order, totalPrice) => async dispatch => {
+  await dispatch({
     type: payedOrderConst.POST_PAYED_ORDER,
     payload: payedOrderAPI.postPayedOrder(order, totalPrice)
   });
@@ -27,8 +27,8 @@ export const postPayedOrder = (order, totalPrice) => dispatch => {
   });
 };
 
-export const updatePayedOrderById = (id, newOrder) => dispatch => {
-  dispatch({
+export const updatePayedOrderById = (id, newOrder) => async dispatch => {
+  await dispatch({
     type: payedOrderConst.UPDATE_PAYED_ORDER,
     payload: payedOrderAPI.updatePayedOrderById(id, newOrder)
   });
@@ -39,8 +39,8 @@ export const updatePayedOrderById = (id, newOrder) => dispatch => {
   });
 };
 
-export const removePayedOrderById = id => dispatch => {
-  dispatch({
+export const removePayedOrderById = id => async dispatch => {
+  await dispatch({
     type: payedOrderConst.REMOVE_PAYED_ORDER,
     payload: payedOrderAPI.removePayedOrderById(id)
   });

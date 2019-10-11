@@ -1,7 +1,7 @@
 import * as payedOrderConst from "../const/payedOrder.const";
 
 const initState = {
-  payedOrders: null,
+  payedOrders: [],
   selectedOrder: undefined,
   isLoading: false,
   error: null
@@ -21,7 +21,7 @@ const payedOrderReducer = (state = initState, action) => {
       return { ...state, isLoading: false, payedOrders: payload.data };
 
     // GET /:id
-    case payedOrderConst.GET_PAYED_ORDERS_PENDING:
+    case payedOrderConst.GET_PAYED_ORDER_PENDING:
       return { ...state, isLoading: true };
     case payedOrderConst.GET_PAYED_ORDER_REJECTED:
       return { ...state, isLoading: false, error: payload.message };
@@ -32,7 +32,6 @@ const payedOrderReducer = (state = initState, action) => {
     case payedOrderConst.POST_PAYED_ORDER_PENDING:
       return { ...state, isLoading: true };
     case payedOrderConst.POST_PAYED_ORDER_REJECTED:
-      console.log(payload);
       return { ...state, isLoading: false, error: payload.message };
     case payedOrderConst.POST_PAYED_ORDER_FULFILLED:
       return { ...state, isLoading: false };
