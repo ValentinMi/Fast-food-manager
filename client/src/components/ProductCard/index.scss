@@ -1,10 +1,21 @@
 .card {
-  width: 80%;
   max-width: 280px;
   margin: 10% auto;
+  border-radius: 10px !important;
+  background: black !important;
+  color: white;
+  span,
+  p {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .card-title {
+    font-weight: bold;
+  }
   .admin-btn-cont {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
   }
   .select-input {
     width: 25%;

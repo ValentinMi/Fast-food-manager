@@ -25,7 +25,7 @@ class Board extends Component {
     const { isAdmin } = user.data;
 
     //  Props actions
-    const { productActions, pendingOrderActions } = this.props;
+    const { productActions } = this.props;
 
     return (
       <div className="board">

@@ -1,8 +1,13 @@
 .form-user {
-  margin: 5% auto;
+  padding: 5%;
+  margin: 0 auto;
   width: 60%;
   display: flex;
   flex-direction: column;
+  color: white;
+  .btn-submit {
+    width: 200px;
+  }
   .form-title,
   .btn-submit {
     text-transform: capitalize;

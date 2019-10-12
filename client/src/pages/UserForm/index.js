@@ -69,7 +69,7 @@ class UserForm extends Component {
     const { formType, user } = this.state;
 
     return (
-      <div className=" formform-group form-user">
+      <div className=" form form-group form-user">
         <h1 className="form-title">{this.state.formType}</h1>
         <label>Email</label>
         <input

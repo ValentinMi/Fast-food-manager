@@ -1,5 +1,4 @@
 const { Product } = require("./models/product");
-const { PayedOrder } = require("./models/payedOrder");
 const { User } = require("./models/user");
 const mongoose = require("mongoose");
 const moment = require("moment");
@@ -34,25 +33,6 @@ const productsData = [
   }
 ];
 
-const payedOrderData = [
-  {
-    products: [
-      {
-        name: "Hamburger",
-        quantity: 3,
-        price: 12
-      },
-      {
-        name: "Tacos",
-        quatity: 2,
-        price: 15
-      }
-    ],
-    totalPrice: 27,
-    date: moment().toJSON()
-  }
-];
-
 async function createUsers() {
   const salt = await bcrypt.genSalt(10);
 
@@ -82,12 +62,10 @@ async function seed() {
 
   // Clear DB
   await Product.deleteMany({});
-  await PayedOrder.deleteMany({});
   await User.deleteMany({});
 
   // Populate DB
   await Product.insertMany(productsData);
-  await PayedOrder.insertMany(payedOrderData);
   await User.insertMany(await createUsers());
 
   mongoose.disconnect();
