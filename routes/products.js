@@ -1,36 +1,9 @@
 const admin = require("../middlewares/admin");
 const auth = require("../middlewares/auth");
+const upload = require("../middlewares/upload");
 const { Product, validate } = require("../models/product");
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "./uploads");
-  },
-  filename: (req, file, callback) => {
-    // Rename uploaded file with treated product name
-    callback(null, `product-${req.body.name.trim().replace(/\s/g, "")}`);
-  }
-});
-
-// Filter file incoming to only accept png and jpeg
-const fileFilter = (req, file, callback) => {
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    callback(null, true);
-  } else {
-    callback(null, false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  },
-  fileFilter: fileFilter
-});
 
 // GET PRODUCT
 router.get("/:id", async (req, res) => {
@@ -48,34 +21,28 @@ router.get("/", async (req, res) => {
 });
 
 // POST NEW PRODUCT
-router.post(
-  "/",
-  [auth],
-  [admin],
-  upload.single("image"), // Uploads file middleware
-  async (req, res) => {
-    // Validation
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+router.post("/", [auth], [admin], [upload], async (req, res) => {
+  // Validation
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    // Check if product already exist
-    let newProduct = await Product.findOne({ name: req.body.name });
-    if (newProduct) return res.status(400).send("Product already exist");
+  // Check if product already exist
+  let newProduct = await Product.findOne({ name: req.body.name });
+  if (newProduct) return res.status(400).send("Product already exist");
 
-    // Create new Product
-    newProduct = new Product({
-      name: req.body.name,
-      price: req.body.price,
-      stock: req.body.stock,
-      image: req.file.path
-    });
+  // Create new Product
+  newProduct = new Product({
+    name: req.body.name,
+    price: req.body.price,
+    stock: req.body.stock,
+    image: req.file.path
+  });
 
-    // Save product
-    await newProduct.save();
+  // Save product
+  await newProduct.save();
 
-    res.send(newProduct);
-  }
-);
+  res.send(newProduct);
+});
 
 // UPDATE PRODUCT
 router.put("/:id", [auth], async (req, res) => {
