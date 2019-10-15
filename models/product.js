@@ -16,13 +16,13 @@ const Product = mongoose.model(
       min: 0,
       required: true
     },
-    quantity: {
-      type: Number,
-      min: 1
-    },
     stock: {
       type: Number,
       min: 0,
+      required: true
+    },
+    image: {
+      type: String,
       required: true
     }
   })

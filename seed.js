@@ -9,27 +9,32 @@ const productsData = [
   {
     name: "Hamburger",
     price: 4,
-    stock: 13
+    stock: 13,
+    image: "uploads/product-Hamburger"
   },
   {
     name: "Hot-Dog",
     price: 2,
-    stock: 10
+    stock: 10,
+    image: "uploads/product-Hot-Dog"
   },
   {
     name: "Salade César",
     price: 5,
-    stock: 8
+    stock: 8,
+    image: "uploads/product-Salade-César"
   },
   {
     name: "Pizza",
     price: 10,
-    stock: 7
+    stock: 7,
+    image: "uploads/product-Pizza"
   },
   {
     name: "Tacos",
     price: 7.5,
-    stock: 4
+    stock: 4,
+    image: "uploads/product-Tacos"
   }
 ];
 

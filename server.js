@@ -3,6 +3,8 @@ const config = require("config");
 const express = require("express");
 const app = express();
 
+app.use("/uploads", express.static("uploads"));
+
 require("./startup/logging")();
 require("./startup/cors")(app);
 require("./startup/routes")(app);
