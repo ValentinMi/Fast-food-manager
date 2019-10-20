@@ -112,7 +112,6 @@ const OrderList = ({
                   key={`pending${product.name}${index}`}
                   user={user}
                   product={product}
-                  // actions={productActions}
                   inOrderList={true}
                 />
               ))}
@@ -120,10 +119,7 @@ const OrderList = ({
         {!isAdmin && (
           <div className="buy-box">
             <span className="price">{totalPrice} €</span>
-            <button
-              className="btn btn-lg btn-success btn-buy"
-              onClick={() => handleBuy()}
-            >
+            <button className="btn btn-lg btn-buy" onClick={() => handleBuy()}>
               BUY
             </button>
           </div>

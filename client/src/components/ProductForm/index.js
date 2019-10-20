@@ -76,7 +76,7 @@ const ProductForm = ({ actions }) => {
             <input
               name="file"
               type="file"
-              class="form-control-file"
+              className="form-control-file"
               onChange={handleChange}
             />
             <button

@@ -4,6 +4,7 @@ const upload = require("../middlewares/upload");
 const { Product, validate } = require("../models/product");
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
 
 // GET PRODUCT
 router.get("/:id", async (req, res) => {
@@ -70,6 +71,14 @@ router.delete("/:id", [auth], [admin], async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
 
   if (!product) return res.status(404).send("Product not found");
+
+  // Remove image file
+  const path = product.image;
+  fs.unlink(path, err => {
+    if (err) {
+      console.log(err.message);
+    }
+  });
 
   res.send(product);
 });

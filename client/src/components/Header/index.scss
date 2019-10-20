@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+
+.header {
+  height: 37vh;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  line-height: 30vh;
+  white-space: nowrap;
+  background: linear-gradient(
+    180deg,
+    rgba(209, 122, 34, 1) 67%,
+    rgba(115, 111, 78, 1) 100%
+  );
+
+  .header-title {
+    font-size: 6em;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-family: "Pacifico", cursive;
+  }
+}

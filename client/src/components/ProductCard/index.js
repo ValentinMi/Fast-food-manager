@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import {
@@ -13,21 +13,16 @@ import {
 
 import SelectInput from "../shared/SelectInput/index";
 
+import { imageURL } from "../../config.json";
+
 import "./index.scss";
 
-const ProductCard = ({
-  user,
-  product,
-  inOrderList,
-  addProductToOrder,
-  removeProductFromOrder,
-  removeProductById,
-  updateProductById
-}) => {
+const ProductCard = ({ user, product, inOrderList, actions }) => {
   const [selectValue, setSelectValue] = useState(1);
 
   // Destructure product obj
-  const { name, stock, quantity, price } = product;
+  const { name, stock, quantity, price, image } = product;
+  console.log(image);
 
   // Destructure user
   const { isAdmin } = user.data;
@@ -37,7 +32,7 @@ const ProductCard = ({
   };
 
   const handleProductRefound = quantity => {
-    updateProductById(product._id, {
+    actions.updateProductById(product._id, {
       name: product.name,
       price: product.price,
       stock: product.stock + quantity
@@ -46,6 +41,13 @@ const ProductCard = ({
 
   return (
     <div className="card card-product">
+      {!inOrderList && (
+        <img
+          className="card-img-top"
+          src={imageURL + image}
+          alt={product.name}
+        />
+      )}{" "}
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <div className="btn-container">
@@ -69,11 +71,11 @@ const ProductCard = ({
     return (
       <div className="order-box">
         <span>Quantity: {quantity}</span>
-        <p>{price * quantity} €</p>
+        <p className="order-price">{price * quantity} €</p>
         {!isAdmin && (
           <button
-            className="btn btn-danger"
-            onClick={() => removeProductFromOrder(name)}
+            className="btn btn-warning"
+            onClick={() => actions.removeProductFromOrder(name)}
           >
             Remove
           </button>
@@ -97,7 +99,7 @@ const ProductCard = ({
           </button>
           <button
             className="btn btn-danger btn-admin"
-            onClick={() => removeProductById(product._id)}
+            onClick={() => actions.removeProductById(product._id)}
           >
             Delete product
           </button>
@@ -109,10 +111,9 @@ const ProductCard = ({
   function renderCustomerUI() {
     return (
       <div className="customer-box">
-        <span>Available: {stock}</span>
-        <p>{price * selectValue} €</p>
+        <span className="customer-box-price">{price * selectValue} €</span>
         {user.isLogged && (
-          <Fragment>
+          <div className="customer-box-buttons">
             <SelectInput
               length={stock}
               name={name}
@@ -120,16 +121,18 @@ const ProductCard = ({
             />
             <button
               className={
-                stock === 0 ? "btn btn-success disabled" : "btn btn-success"
+                stock === 0
+                  ? "btn disabled customer-box-button-add  danger"
+                  : "btn customer-box-button-add "
               }
               onClick={
                 stock !== 0 &&
-                (() => addProductToOrder(name, selectValue, price))
+                (() => actions.addProductToOrder(name, selectValue, price))
               }
             >
               ADD
             </button>
-          </Fragment>
+          </div>
         )}
       </div>
     );
@@ -143,14 +146,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // Pending Order
-  addProductToOrder: (name, quantity, totalPrice) =>
-    dispatch(addProductToOrder(name, quantity, totalPrice)),
-  removeProductFromOrder: name => dispatch(removeProductFromOrder(name)),
-  // Product
-  removeProductById: productId => dispatch(removeProductById(productId)),
-  updateProductById: (productId, data) =>
-    dispatch(updateProductById(productId, data))
+  actions: {
+    // Pending Order
+    addProductToOrder: (name, quantity, totalPrice) =>
+      dispatch(addProductToOrder(name, quantity, totalPrice)),
+    removeProductFromOrder: name => dispatch(removeProductFromOrder(name)),
+    // Product
+    removeProductById: productId => dispatch(removeProductById(productId)),
+    updateProductById: (productId, data) =>
+      dispatch(updateProductById(productId, data))
+  }
 });
 
 export default connect(

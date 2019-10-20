@@ -1,13 +1,15 @@
 .order-title {
   text-align: center;
   color: white;
+  margin-top: 100px;
 }
 .order-cont {
-  border: 1px solid white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 53vh;
+  background: #3b3923;
+  border-radius: 10px;
   .order-list {
     padding: 3%;
     .order-payed {
@@ -37,11 +39,15 @@
     justify-content: space-between;
     .price {
       font-size: 3em;
-      color: red;
+      font-weight: bold;
+      color: yellow;
+      width: 100%;
     }
     .btn-buy {
       width: 60%;
       margin: 0;
+      background: #d17a22;
+      color: white;
     }
   }
 }

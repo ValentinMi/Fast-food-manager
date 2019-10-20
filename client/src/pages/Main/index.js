@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { loginWithJwt } from "../../actions/auth.actions";
 
 import NavBar from "../../components/NavBar";
+import Header from "../../components/Header";
 import Board from "../Board";
 import UserForm from "../UserForm";
 import Logout from "../Logout";
@@ -23,6 +24,7 @@ const Main = ({ user, loginWithJwt }) => {
   return (
     <Router history={history}>
       <NavBar />
+      <Header />
       <div className="main">
         <Switch>
           <Route exact path="/" component={Board} />

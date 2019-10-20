@@ -1,16 +1,17 @@
 .card {
-  max-width: 280px;
+  width: 350px;
   margin: 10% auto;
   border-radius: 10px !important;
-  background: black !important;
-  color: white;
+  background: #3b3923 !important;
+  color: #d17a22;
   span,
-  p {
+  p,
+  h5 {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 2em;
   }
-  .card-title {
-    font-weight: bold;
+  .card-img-top {
+    height: 240px;
   }
   .admin-btn-cont {
     display: flex;
@@ -19,5 +20,23 @@
   }
   .select-input {
     width: 25%;
+  }
+
+  .customer-box {
+    .customer-box-price {
+      color: #b4c292;
+    }
+    .customer-box-buttons {
+      display: flex;
+      justify-content: space-between;
+      .customer-box-button-add {
+        background: #d17a22;
+        color: white;
+      }
+    }
+  }
+
+  .order-price {
+    font-size: 30px !important;
   }
 }
