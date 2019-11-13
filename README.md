@@ -18,5 +18,3 @@ App de gestion de fast food
 ## To do list
 
      - Write API test
-     - Learn Redux middleware
-     - Connect front & front
